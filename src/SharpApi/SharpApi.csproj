@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>latestMajor</LangVersion>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/jonathanpotts/SharpApi.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <Company>Jonathan Potts</Company>
+    <Authors>Jonathan Potts</Authors>
+    <Copyright>Copyright © 2020 Jonathan Potts</Copyright>
+  </PropertyGroup>
+
+</Project>
