@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Net;
-using System.Reflection;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -15,11 +11,6 @@ namespace SharpApi.Aws.Lambda
     public class LambdaProxyEndpoint
     {
         /// <summary>
-        /// Map of endpoint paths to handler types.
-        /// </summary>
-        private static readonly Dictionary<string, Type> s_endpoints = new Dictionary<string, Type>();
-
-        /// <summary>
         /// Handles proxy integration requests to the API.
         /// </summary>
         /// <param name="input">Request data stream from API Gateway.</param>
@@ -28,34 +19,12 @@ namespace SharpApi.Aws.Lambda
         {
             var request = await JsonSerializer.DeserializeAsync<LambdaProxyRequest>(input);
 
-            var endpointKey = $"{request.HttpMethod} {request.Path}";
+            var endpoint = ApiEndpointManager.GetApiEndpoint(request.HttpMethod, request.Path);
 
-            if (!s_endpoints.TryGetValue(endpointKey, out var endpointType))
+            if (endpoint == null)
             {
-                var routeEndpoints = AppDomain.CurrentDomain.GetAssemblies()
-                    .SelectMany(a => a.GetTypes())
-                    .Where(t => typeof(ApiEndpoint).IsAssignableFrom(t))
-                    .Select(t => (Type: t, Attribute: t.GetCustomAttribute<ApiEndpointAttribute>()))
-                    .Where(t => t.Attribute?.Path == request.Path);
-
-                endpointType = routeEndpoints.FirstOrDefault(t => t.Attribute.Method == request.HttpMethod).Type;
-
-                // Use GET endpoint for HEAD requests when applicable
-                if (endpointType == null && request.HttpMethod == "HEAD")
-                {
-                    endpointType = routeEndpoints.FirstOrDefault(t => t.Attribute.Method == "GET" && t.Attribute.UseGetForHead).Type;
-                }
-
-                if (endpointType == null)
-                {
-                    return await new LambdaProxyResponse((int)HttpStatusCode.NotFound)
-                        .ToJsonStreamAsync();
-                }
-
-                s_endpoints.Add(endpointKey, endpointType);
+                return await new LambdaProxyResponse((int)HttpStatusCode.NotFound).ToJsonStreamAsync();
             }
-
-            var endpoint = (ApiEndpoint)Activator.CreateInstance(endpointType);
 
             var apiRequest = new ApiRequest(request.MultiValueHeaders, request.MultiValueQueryStringParameters, request.Body);
             var result = await endpoint.RunAsync(apiRequest);
