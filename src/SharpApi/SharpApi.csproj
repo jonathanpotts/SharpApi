@@ -5,7 +5,7 @@
     <LangVersion>latestMajor</LangVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <RepositoryUrl>https://github.com/jonathanpotts/SharpApi.git</RepositoryUrl>
+    <RepositoryUrl>https://github.com/jonathanpotts/SharpAPI.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <Company>Jonathan Potts</Company>
     <Authors>Jonathan Potts</Authors>

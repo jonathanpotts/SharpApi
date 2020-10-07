@@ -2,10 +2,17 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>latestMajor</LangVersion>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/jonathanpotts/SharpAPI.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <Company>Jonathan Potts</Company>
+    <Authors>Jonathan Potts</Authors>
+    <Copyright>Copyright © 2020 Jonathan Potts</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Amazon.Lambda.RuntimeSupport" Version="1.1.1" />
     <PackageReference Include="System.Text.Json" Version="4.7.2" />
   </ItemGroup>
 

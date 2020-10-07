@@ -1,5 +1,4 @@
-﻿using Amazon.Lambda.Core;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -14,11 +13,11 @@ namespace SharpApi.Aws.Lambda
     {
         private static readonly Dictionary<string, Type> s_endpoints = new Dictionary<string, Type>();
 
-        public async Task<Stream> Handler(Stream input, ILambdaContext context)
+        public async Task<Stream> Handler(Stream input)
         {
             var request = await JsonSerializer.DeserializeAsync<LambdaProxyRequest>(input);
 
-            var endpointKey = $"[{request.HttpMethod}] {request.Path}";
+            var endpointKey = $"{request.HttpMethod} {request.Path}";
 
             if (!s_endpoints.TryGetValue(endpointKey, out var endpointType))
             {
@@ -47,13 +46,26 @@ namespace SharpApi.Aws.Lambda
 
             var endpoint = (ApiEndpoint)Activator.CreateInstance(endpointType);
 
-            var result = await endpoint.RunAsync(request.Body);
+            var apiRequest = new ApiRequest(request.MultiValueHeaders, request.MultiValueQueryStringParameters, request.Body);
+            var result = await endpoint.RunAsync(apiRequest);
 
-            var response = new LambdaProxyResponse((int)result.StatusCode, result.Body)
+            LambdaProxyResponse response;
+
+            if (request.HttpMethod == "HEAD")
             {
-                IsBase64Encoded = result.BodyIsBase64Encoded,
-                MultiValueHeaders = result.Headers
-            };
+                response = new LambdaProxyResponse((int)result.StatusCode)
+                {
+                    MultiValueHeaders = result.Headers
+                };
+            }
+            else
+            {
+                response = new LambdaProxyResponse((int)result.StatusCode, result.Body)
+                {
+                    IsBase64Encoded = result.BodyIsBase64Encoded,
+                    MultiValueHeaders = result.Headers
+                };
+            }
 
             return await response.ToJsonStreamAsync();
         }
