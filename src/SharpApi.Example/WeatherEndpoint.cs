@@ -1,15 +1,14 @@
-﻿using SharpApi.Example.Shared;
-using System.Net;
+﻿using System.Net;
 using System.Threading.Tasks;
 
 namespace SharpApi.Example
 {
     [ApiEndpoint("/weather")]
-    public class WeatherEndpoint : ApiEndpoint<WeatherData>
+    public class WeatherEndpoint : ApiEndpoint
     {
-        public override Task<ApiResult> RunAsync(ApiRequest<WeatherData> request)
+        public override Task<ApiResult> RunAsync(ApiRequest request)
         {
-            return new Task<ApiResult>(() => new StatusCodeResult(HttpStatusCode.OK));
+            return Task.FromResult<ApiResult>(new StatusCodeResult(HttpStatusCode.OK));
         }
     }
 }
