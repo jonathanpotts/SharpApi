@@ -9,10 +9,21 @@ using System.Threading.Tasks;
 
 namespace SharpApi.Aws.Lambda
 {
-    public class LambdaEndpoint
+    /// <summary>
+    /// An endpoint that handles Lambda requests through proxy integration.
+    /// </summary>
+    public class LambdaProxyEndpoint
     {
+        /// <summary>
+        /// Map of endpoint paths to handler types.
+        /// </summary>
         private static readonly Dictionary<string, Type> s_endpoints = new Dictionary<string, Type>();
 
+        /// <summary>
+        /// Handles proxy integration requests to the API.
+        /// </summary>
+        /// <param name="input">Request data stream from API Gateway.</param>
+        /// <returns>Response data stream to API Gateway.</returns>
         public async Task<Stream> Handler(Stream input)
         {
             var request = await JsonSerializer.DeserializeAsync<LambdaProxyRequest>(input);
@@ -25,7 +36,7 @@ namespace SharpApi.Aws.Lambda
                     .SelectMany(a => a.GetTypes())
                     .Where(t => typeof(ApiEndpoint).IsAssignableFrom(t))
                     .Select(t => (Type: t, Attribute: t.GetCustomAttribute<ApiEndpointAttribute>()))
-                    .Where(t => t.Attribute?.Route == request.Path);
+                    .Where(t => t.Attribute?.Path == request.Path);
 
                 endpointType = routeEndpoints.FirstOrDefault(t => t.Attribute.Method == request.HttpMethod).Type;
 

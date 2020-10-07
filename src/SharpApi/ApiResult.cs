@@ -3,6 +3,9 @@ using System.Net;
 
 namespace SharpApi
 {
+    /// <summary>
+    /// An API result containing a body and metadata.
+    /// </summary>
     public abstract class ApiResult
     {
         public HttpStatusCode StatusCode { get; set; }
