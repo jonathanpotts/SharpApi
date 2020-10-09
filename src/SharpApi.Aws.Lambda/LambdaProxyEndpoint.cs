@@ -8,14 +8,14 @@ namespace SharpApi.Aws.Lambda
     /// <summary>
     /// An endpoint that handles Lambda requests through proxy integration.
     /// </summary>
-    public class LambdaProxyEndpoint
+    public static class LambdaProxyEndpoint
     {
         /// <summary>
         /// Handles proxy integration requests to the API.
         /// </summary>
         /// <param name="input">Request data stream from API Gateway.</param>
         /// <returns>Response data stream to API Gateway.</returns>
-        public async Task<Stream> Handler(Stream input)
+        public static async Task<Stream> Handler(Stream input)
         {
             var request = await JsonSerializer.DeserializeAsync<LambdaProxyRequest>(input);
 

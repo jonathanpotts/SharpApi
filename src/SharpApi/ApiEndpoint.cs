@@ -29,6 +29,14 @@ namespace SharpApi
     public abstract class ApiEndpoint<T> : ApiEndpoint
     {
         /// <summary>
+        /// Creates a new instance of the endpoint.
+        /// </summary>
+        public ApiEndpoint()
+            : base()
+        {
+        }
+
+        /// <summary>
         /// Runs upon receiving API requests.
         /// </summary>
         /// <param name="request">API request data.</param>

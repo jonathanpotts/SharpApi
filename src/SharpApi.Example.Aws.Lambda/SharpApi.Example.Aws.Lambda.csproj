@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <LangVersion>latestMajor</LangVersion>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/jonathanpotts/SharpAPI.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <Company>Jonathan Potts</Company>
+    <Authors>Jonathan Potts</Authors>
+    <Copyright>Copyright © 2020 Jonathan Potts</Copyright>
+    <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+    <AWSProjectType>Lambda</AWSProjectType>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Amazon.Lambda.Core" Version="1.1.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SharpApi.Aws.Lambda\SharpApi.Aws.Lambda.csproj" />
+    <ProjectReference Include="..\SharpApi.Example\SharpApi.Example.csproj" />
+  </ItemGroup>
+</Project>
