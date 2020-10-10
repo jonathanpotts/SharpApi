@@ -22,7 +22,7 @@ namespace SharpApi.AspNetCore
             var headers = context.Request.Headers.ToDictionary(h => h.Key, h => h.Value.ToList());
             var query = context.Request.Query.ToDictionary(q => q.Key, q => q.Value.ToList());
 
-            using var apiRequest = new ApiRequest(headers, query, null);
+            using var apiRequest = new ApiRequest(headers, query, context.Request.Body);
             using var result = await endpoint.RunAsync(apiRequest);
 
             foreach (var header in result.Headers ?? Enumerable.Empty<KeyValuePair<string, List<string>>>())
