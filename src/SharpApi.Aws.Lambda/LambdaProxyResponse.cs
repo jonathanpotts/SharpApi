@@ -11,7 +11,7 @@ namespace SharpApi.Aws.Lambda
     public class LambdaProxyResponse
     {
         /// <summary>
-        /// Determines if body is base64 encoded.
+        /// Determines if the body is base64 encoded.
         /// </summary>
         public bool IsBase64Encoded { get; set; }
 
@@ -33,17 +33,19 @@ namespace SharpApi.Aws.Lambda
         /// <summary>
         /// Body of the response.
         /// </summary>
-        public object Body { get; set; }
+        public string Body { get; set; }
 
         /// <summary>
         /// Creates a response for an API Gateway request.
         /// </summary>
         /// <param name="statusCode">HTTP status code for response.</param>
         /// <param name="body">Body of the response.</param>
-        public LambdaProxyResponse(int statusCode, object body = null)
+        /// <param name="bodyIsBase64Encoded">Determines if the body is base64 encoded.</param>
+        public LambdaProxyResponse(int statusCode, string body = null, bool bodyIsBase64Encoded = false)
         {
             StatusCode = statusCode;
             Body = body;
+            IsBase64Encoded = bodyIsBase64Encoded;
         }
 
         /// <summary>

@@ -1,5 +1,8 @@
-﻿using System.IO;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Net;
+using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -26,8 +29,9 @@ namespace SharpApi.Aws.Lambda
                 return await new LambdaProxyResponse((int)HttpStatusCode.NotFound).ToJsonStreamAsync();
             }
 
-            var apiRequest = new ApiRequest(request.MultiValueHeaders, request.MultiValueQueryStringParameters, request.Body, request.IsBase64Encoded);
-            var result = await endpoint.RunAsync(apiRequest);
+            using var body = new MemoryStream(request.IsBase64Encoded ? Convert.FromBase64String(request.Body) : Encoding.UTF8.GetBytes(request.Body));
+            using var apiRequest = new ApiRequest(request.MultiValueHeaders, request.MultiValueQueryStringParameters, body);
+            using var result = await endpoint.RunAsync(apiRequest);
 
             LambdaProxyResponse response;
 
@@ -40,11 +44,27 @@ namespace SharpApi.Aws.Lambda
             }
             else
             {
-                response = new LambdaProxyResponse((int)result.StatusCode, result.Body)
+                byte[] bytes;
+
+                if (result.Body is MemoryStream ms)
                 {
-                    IsBase64Encoded = result.BodyIsBase64Encoded,
+                    bytes = ms.ToArray();
+                }
+                else
+                {
+                    using (ms = new MemoryStream())
+                    {
+                        await result.Body.CopyToAsync(ms);
+                        bytes = ms.ToArray();
+                    }
+                }
+
+                response = new LambdaProxyResponse((int)result.StatusCode, Convert.ToBase64String(bytes), true)
+                {
                     MultiValueHeaders = result.Headers
                 };
+
+                response.MultiValueHeaders.Add("Content-Length", new List<string> { bytes.Length.ToString() });
             }
 
             return await response.ToJsonStreamAsync();

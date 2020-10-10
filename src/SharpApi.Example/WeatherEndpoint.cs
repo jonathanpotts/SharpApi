@@ -1,5 +1,4 @@
-﻿using System.Net;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace SharpApi.Example
 {
@@ -8,7 +7,7 @@ namespace SharpApi.Example
     {
         public override Task<ApiResult> RunAsync(ApiRequest request)
         {
-            return Task.FromResult<ApiResult>(new StatusCodeResult(HttpStatusCode.OK));
+            return Task.FromResult<ApiResult>(new StringResult("Hello from Weather endpoint."));
         }
     }
 }

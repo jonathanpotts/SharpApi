@@ -22,6 +22,8 @@ namespace SharpApi.Example.AspNetCore
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseHsts();
+
             app.Run(AspNetCoreEndpoint.HandleAsync);
         }
     }

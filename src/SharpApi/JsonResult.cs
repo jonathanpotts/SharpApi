@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Net;
+using System.Text;
 using System.Text.Json;
 
 namespace SharpApi
@@ -16,14 +18,14 @@ namespace SharpApi
         /// <param name="statusCode">HTTP status code to return.</param>
         public JsonResult(object obj, HttpStatusCode statusCode = HttpStatusCode.OK)
         {
-            StatusCode = statusCode;
+            Body = new MemoryStream(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(obj, obj.GetType())));
 
             Headers = new Dictionary<string, List<string>>
             {
-                { "Content-Type", new List<string> { "application/json" } }
+                { "Content-Type", new List<string> { "application/json; charset=utf-8" } }
             };
 
-            Body = JsonSerializer.Serialize(obj, obj.GetType());
+            StatusCode = statusCode;
         }
     }
 }
