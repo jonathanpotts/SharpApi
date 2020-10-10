@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition.Hosting;
 using System.Linq;
 using System.Reflection;
 
@@ -23,15 +24,25 @@ namespace SharpApi
         /// <returns>API endpoint.</returns>
         public static ApiEndpoint GetApiEndpoint(string method, string path)
         {
+            method = method.ToUpper();
+            path = path.TrimEnd('/');
+
             var endpointKey = $"{method} {path}";
 
             if (!s_endpointTypes.TryGetValue(endpointKey, out var endpointType))
             {
+                // Load all assemblies bundled with the API runtime
+                new DirectoryCatalog(AppContext.BaseDirectory);
+
+                var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+
+                var types = assemblies.SelectMany(a => a.GetTypes()).ToList();
+
                 var routeEndpoints = AppDomain.CurrentDomain.GetAssemblies()
                     .SelectMany(a => a.GetTypes())
                     .Where(t => typeof(ApiEndpoint).IsAssignableFrom(t))
                     .Select(t => (Type: t, Attribute: t.GetCustomAttribute<ApiEndpointAttribute>()))
-                    .Where(t => t.Attribute?.Path == path);
+                    .Where(t => t.Attribute?.Path.TrimEnd('/') == path);
 
                 endpointType = routeEndpoints.FirstOrDefault(t => t.Attribute.Method == method).Type;
 

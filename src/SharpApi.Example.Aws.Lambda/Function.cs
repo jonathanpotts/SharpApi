@@ -16,7 +16,7 @@ namespace SharpApi.Example.Aws.Lambda
         /// <returns>API Gateway response data.</returns>
         public async Task<Stream> FunctionHandler(Stream input)
         {
-            return await LambdaProxyEndpoint.Handler(input);
+            return await LambdaProxyEndpoint.HandleAsync(input);
         }
     }
 }

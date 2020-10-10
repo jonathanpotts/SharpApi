@@ -15,7 +15,7 @@ namespace SharpApi.Aws.Lambda
         /// </summary>
         /// <param name="input">Request data stream from API Gateway.</param>
         /// <returns>Response data stream to API Gateway.</returns>
-        public static async Task<Stream> Handler(Stream input)
+        public static async Task<Stream> HandleAsync(Stream input)
         {
             var request = await JsonSerializer.DeserializeAsync<LambdaProxyRequest>(input);
 
@@ -26,7 +26,7 @@ namespace SharpApi.Aws.Lambda
                 return await new LambdaProxyResponse((int)HttpStatusCode.NotFound).ToJsonStreamAsync();
             }
 
-            var apiRequest = new ApiRequest(request.MultiValueHeaders, request.MultiValueQueryStringParameters, request.Body);
+            var apiRequest = new ApiRequest(request.MultiValueHeaders, request.MultiValueQueryStringParameters, request.Body, request.IsBase64Encoded);
             var result = await endpoint.RunAsync(apiRequest);
 
             LambdaProxyResponse response;

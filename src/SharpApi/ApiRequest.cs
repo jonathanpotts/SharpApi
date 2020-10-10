@@ -19,34 +19,41 @@ namespace SharpApi
         public Dictionary<string, List<string>> Query { get; private set; }
 
         /// <summary>
-        /// Body received with the request in JSON format.
+        /// Body received with the request as a string.
         /// </summary>
-        public string BodyJson { get; private set; }
+        public string Body { get; private set; }
+
+        /// <summary>
+        /// Determines if the body is base64 encoded.
+        /// </summary>
+        public bool BodyIsBase64Encoded { get; private set; }
 
         /// <summary>
         /// Creates an API request.
         /// </summary>
         /// <param name="headers">Headers received with the request.</param>
         /// <param name="query">Query string parameters received with the request.</param>
-        /// <param name="bodyJson">Body received with the request in JSON format.</param>
-        public ApiRequest(Dictionary<string, List<string>> headers, Dictionary<string, List<string>> query, string bodyJson)
+        /// <param name="body">Body received with the request as a string.</param>
+        /// <param name="bodyIsBase64Encoded">Determines if the body is base64 encoded.</param>
+        public ApiRequest(Dictionary<string, List<string>> headers, Dictionary<string, List<string>> query, string body, bool bodyIsBase64Encoded = false)
         {
             Headers = headers;
             Query = query;
-            BodyJson = bodyJson;
+            Body = body;
+            BodyIsBase64Encoded = bodyIsBase64Encoded;
         }
     }
 
     /// <summary>
     /// An API request that converts the body JSON into an object.
     /// </summary>
-    /// <typeparam name="T">Type of object to deserialize body into.</typeparam>
-    public class ApiRequest<T> : ApiRequest
+    /// <typeparam name="TModel">Type of object to deserialize body into.</typeparam>
+    public class ApiRequest<TModel> : ApiRequest
     {
         /// <summary>
         /// Body received with the request.
         /// </summary>
-        public T Body { get; private set; }
+        public TModel BodyFromJson { get; private set; }
 
         /// <summary>
         /// Creates an API request.
@@ -54,10 +61,11 @@ namespace SharpApi
         /// <param name="headers">Headers received with the request.</param>
         /// <param name="query">Query string parameters received with the request.</param>
         /// <param name="bodyJson">Body received with the request in JSON format.</param>
-        public ApiRequest(Dictionary<string, List<string>> headers, Dictionary<string, List<string>> query, string bodyJson)
-            : base(headers, query, bodyJson)
+        /// <param name="bodyIsBase64Encoded">Determines if the body is base64 encoded.</param>
+        public ApiRequest(Dictionary<string, List<string>> headers, Dictionary<string, List<string>> query, string bodyJson, bool bodyIsBase64Encoded = false)
+            : base(headers, query, bodyJson, bodyIsBase64Encoded)
         {
-            Body = JsonSerializer.Deserialize<T>(bodyJson);
+            BodyFromJson = JsonSerializer.Deserialize<TModel>(bodyJson);
         }
 
         /// <summary>
@@ -65,7 +73,7 @@ namespace SharpApi
         /// </summary>
         /// <param name="request">Generic API request.</param>
         public ApiRequest(ApiRequest request)
-            : this(request.Headers, request.Query, request.BodyJson)
+            : this(request.Headers, request.Query, request.Body)
         {
         }
     }

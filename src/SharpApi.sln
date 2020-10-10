@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpApi.AspNetCore", "Shar
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpApi.Example.Aws.Lambda", "SharpApi.Example.Aws.Lambda\SharpApi.Example.Aws.Lambda.csproj", "{13B0EA3D-95EA-44C5-95FC-51793B500CE1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpApi.Example.AspNetCore", "SharpApi.Example.AspNetCore\SharpApi.Example.AspNetCore.csproj", "{EBEF27E3-39D4-4005-B1A2-BCE83D68E05C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpApi.Example.AspNetCore", "SharpApi.Example.AspNetCore\SharpApi.Example.AspNetCore.csproj", "{EBEF27E3-39D4-4005-B1A2-BCE83D68E05C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
