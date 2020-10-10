@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30503.244
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpApi", "SharpApi\SharpApi.csproj", "{143A19D1-D2CE-47ED-B337-FD03759570CB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpApi.Aws.Lambda", "SharpApi.Aws.Lambda\SharpApi.Aws.Lambda.csproj", "{268BEC72-2704-4F95-9A75-F1801125AB42}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpApi.AwsLambda", "SharpApi.AwsLambda\SharpApi.AwsLambda.csproj", "{268BEC72-2704-4F95-9A75-F1801125AB42}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpApi.Example", "SharpApi.Example\SharpApi.Example.csproj", "{8F8AFBE7-D44E-420F-B6F3-E82D43D1A3CF}"
 EndProject
@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpApi.Example.Shared", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpApi.AspNetCore", "SharpApi.AspNetCore\SharpApi.AspNetCore.csproj", "{F8FE99A1-318B-4417-9B57-DF62905DA38E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpApi.Example.Aws.Lambda", "SharpApi.Example.Aws.Lambda\SharpApi.Example.Aws.Lambda.csproj", "{13B0EA3D-95EA-44C5-95FC-51793B500CE1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpApi.Example.AwsLambda", "SharpApi.Example.AwsLambda\SharpApi.Example.AwsLambda.csproj", "{13B0EA3D-95EA-44C5-95FC-51793B500CE1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpApi.Example.AspNetCore", "SharpApi.Example.AspNetCore\SharpApi.Example.AspNetCore.csproj", "{EBEF27E3-39D4-4005-B1A2-BCE83D68E05C}"
 EndProject

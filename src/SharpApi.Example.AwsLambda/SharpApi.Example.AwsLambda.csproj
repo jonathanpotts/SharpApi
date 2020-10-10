@@ -15,7 +15,7 @@
     <PackageReference Include="Amazon.Lambda.Core" Version="1.1.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SharpApi.Aws.Lambda\SharpApi.Aws.Lambda.csproj" />
+    <ProjectReference Include="..\SharpApi.AwsLambda\SharpApi.AwsLambda.csproj" />
     <ProjectReference Include="..\SharpApi.Example\SharpApi.Example.csproj" />
   </ItemGroup>
 </Project>

@@ -34,10 +34,6 @@ namespace SharpApi
                 // Load all assemblies bundled with the API runtime
                 new DirectoryCatalog(AppContext.BaseDirectory);
 
-                var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-
-                var types = assemblies.SelectMany(a => a.GetTypes()).ToList();
-
                 var routeEndpoints = AppDomain.CurrentDomain.GetAssemblies()
                     .SelectMany(a => a.GetTypes())
                     .Where(t => typeof(ApiEndpoint).IsAssignableFrom(t))
