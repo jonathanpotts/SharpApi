@@ -7,8 +7,16 @@ using System.Threading.Tasks;
 
 namespace SharpApi.AspNetCore
 {
+    /// <summary>
+    /// An endpoint that handles ASP.NET Core requests.
+    /// </summary>
     public static class AspNetCoreEndpoint
     {
+        /// <summary>
+        /// Handles requests to the API.
+        /// </summary>
+        /// <param name="context">ASP.NET Core pipeline context.</param>
+        /// <returns>Task that handles the request asynchronously.</returns>
         public static async Task HandleAsync(HttpContext context)
         {
             var endpoint = ApiEndpointManager.GetApiEndpoint(context.Request.Method, context.Request.Path);
