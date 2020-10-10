@@ -10,10 +10,19 @@ namespace SharpApi
     /// </summary>
     public abstract class ApiResult : IDisposable
     {
+        /// <summary>
+        /// HTTP status code to send with the response.
+        /// </summary>
         public HttpStatusCode StatusCode { get; set; }
 
+        /// <summary>
+        /// Headers to send with the response.
+        /// </summary>
         public Dictionary<string, List<string>> Headers { get; set; }
 
+        /// <summary>
+        /// Body to send with the response.
+        /// </summary>
         public Stream Body { get; set; }
 
         public void Dispose()
