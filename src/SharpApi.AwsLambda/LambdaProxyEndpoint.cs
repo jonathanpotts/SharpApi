@@ -41,27 +41,27 @@ namespace SharpApi.Aws.Lambda
                 MultiValueHeaders = result.Headers.ToDictionary(d => d.Key, d => (IList<string>)d.Value)
             };
 
-            if (request.HttpMethod != "HEAD")
-            {
-                byte[] bytes;
+            byte[] bytes;
 
-                if (result.Body is MemoryStream ms)
+            if (result.Body is MemoryStream ms)
+            {
+                bytes = ms.ToArray();
+            }
+            else
+            {
+                using (ms = new MemoryStream())
                 {
+                    await result.Body.CopyToAsync(ms);
                     bytes = ms.ToArray();
                 }
-                else
-                {
-                    using (ms = new MemoryStream())
-                    {
-                        await result.Body.CopyToAsync(ms);
-                        bytes = ms.ToArray();
-                    }
-                }
+            }
 
+            response.MultiValueHeaders.Add("Content-Length", new List<string> { bytes.Length.ToString() });
+
+            if (request.HttpMethod.ToUpper() != "HEAD")
+            {
                 response.Body = Convert.ToBase64String(bytes);
                 response.IsBase64Encoded = true;
-
-                response.MultiValueHeaders.Add("Content-Length", new List<string> { bytes.Length.ToString() });
             }
 
             return response;

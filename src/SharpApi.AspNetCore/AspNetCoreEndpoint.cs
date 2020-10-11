@@ -42,7 +42,10 @@ namespace SharpApi.AspNetCore
 
             context.Response.StatusCode = (int)result.StatusCode;
 
-            await result.Body.CopyToAsync(context.Response.Body);
+            if (context.Request.Method.ToUpper() != "HEAD")
+            {
+                await result.Body.CopyToAsync(context.Response.Body);
+            }
         }
     }
 }
