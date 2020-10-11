@@ -13,12 +13,12 @@ namespace SharpApi
         /// <summary>
         /// Headers received with the request.
         /// </summary>
-        public Dictionary<string, List<string>> Headers { get; private set; }
+        public IDictionary<string, IList<string>> Headers { get; private set; }
 
         /// <summary>
         /// Query string parameters received with the request.
         /// </summary>
-        public Dictionary<string, List<string>> Query { get; private set; }
+        public IDictionary<string, IList<string>> Query { get; private set; }
 
         /// <summary>
         /// Body received with the request.
@@ -31,7 +31,7 @@ namespace SharpApi
         /// <param name="headers">Headers received with the request.</param>
         /// <param name="query">Query string parameters received with the request.</param>
         /// <param name="body">Body received with the request.</param>
-        public ApiRequest(Dictionary<string, List<string>> headers, Dictionary<string, List<string>> query, Stream body)
+        public ApiRequest(IDictionary<string, IList<string>> headers, IDictionary<string, IList<string>> query, Stream body)
         {
             Headers = headers;
             Query = query;
@@ -61,7 +61,7 @@ namespace SharpApi
         /// <param name="headers">Headers received with the request.</param>
         /// <param name="query">Query string parameters received with the request.</param>
         /// <param name="body">Body received with the request.</param>
-        public ApiRequest(Dictionary<string, List<string>> headers, Dictionary<string, List<string>> query, Stream body, bool bodyIsBase64Encoded = false)
+        public ApiRequest(IDictionary<string, IList<string>> headers, IDictionary<string, IList<string>> query, Stream body, bool bodyIsBase64Encoded = false)
             : base(headers, query, body)
         {
             using var sr = new StreamReader(body);

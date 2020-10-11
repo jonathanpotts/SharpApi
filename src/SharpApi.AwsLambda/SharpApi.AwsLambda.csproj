@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <LangVersion>latestMajor</LangVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -13,7 +13,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Text.Json" Version="4.7.2" />
+    <PackageReference Include="Amazon.Lambda.APIGatewayEvents" Version="2.2.0" />
   </ItemGroup>
 
   <ItemGroup>

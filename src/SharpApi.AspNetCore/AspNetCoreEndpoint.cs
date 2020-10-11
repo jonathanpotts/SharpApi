@@ -27,8 +27,8 @@ namespace SharpApi.AspNetCore
                 return;
             }
 
-            var headers = context.Request.Headers.ToDictionary(h => h.Key, h => h.Value.ToList());
-            var query = context.Request.Query.ToDictionary(q => q.Key, q => q.Value.ToList());
+            var headers = context.Request.Headers.ToDictionary(h => h.Key, h => (IList<string>)h.Value.ToList());
+            var query = context.Request.Query.ToDictionary(q => q.Key, q => (IList<string>)q.Value.ToList());
 
             using var apiRequest = new ApiRequest(headers, query, context.Request.Body);
             using var result = await endpoint.RunAsync(apiRequest);

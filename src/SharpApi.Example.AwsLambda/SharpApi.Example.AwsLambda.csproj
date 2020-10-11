@@ -13,6 +13,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Amazon.Lambda.Core" Version="1.1.0" />
+    <PackageReference Include="Amazon.Lambda.Serialization.SystemTextJson" Version="2.0.2" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SharpApi.AwsLambda\SharpApi.AwsLambda.csproj" />

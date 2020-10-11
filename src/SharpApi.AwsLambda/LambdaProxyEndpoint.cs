@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Amazon.Lambda.APIGatewayEvents;
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace SharpApi.Aws.Lambda
@@ -18,31 +19,29 @@ namespace SharpApi.Aws.Lambda
         /// </summary>
         /// <param name="input">Request data stream from API Gateway.</param>
         /// <returns>Response data stream to API Gateway.</returns>
-        public static async Task<Stream> HandleAsync(Stream input)
+        public static async Task<APIGatewayProxyResponse> HandleAsync(APIGatewayProxyRequest request)
         {
-            var request = await JsonSerializer.DeserializeAsync<LambdaProxyRequest>(input);
-
             var endpoint = ApiEndpointManager.GetApiEndpoint(request.HttpMethod, request.Path);
 
             if (endpoint == null)
             {
-                return await new LambdaProxyResponse((int)HttpStatusCode.NotFound).ToJsonStreamAsync();
+                return new APIGatewayProxyResponse
+                {
+                    StatusCode = (int)HttpStatusCode.NotFound
+                };
             }
 
             using var body = new MemoryStream(request.IsBase64Encoded ? Convert.FromBase64String(request.Body) : Encoding.UTF8.GetBytes(request.Body));
             using var apiRequest = new ApiRequest(request.MultiValueHeaders, request.MultiValueQueryStringParameters, body);
             using var result = await endpoint.RunAsync(apiRequest);
 
-            LambdaProxyResponse response;
-
-            if (request.HttpMethod == "HEAD")
+            var response = new APIGatewayProxyResponse
             {
-                response = new LambdaProxyResponse((int)result.StatusCode)
-                {
-                    MultiValueHeaders = result.Headers
-                };
-            }
-            else
+                StatusCode = (int)result.StatusCode,
+                MultiValueHeaders = result.Headers.ToDictionary(d => d.Key, d => (IList<string>)d.Value)
+            };
+
+            if (request.HttpMethod != "HEAD")
             {
                 byte[] bytes;
 
@@ -59,15 +58,13 @@ namespace SharpApi.Aws.Lambda
                     }
                 }
 
-                response = new LambdaProxyResponse((int)result.StatusCode, Convert.ToBase64String(bytes), true)
-                {
-                    MultiValueHeaders = result.Headers
-                };
+                response.Body = Convert.ToBase64String(bytes);
+                response.IsBase64Encoded = true;
 
                 response.MultiValueHeaders.Add("Content-Length", new List<string> { bytes.Length.ToString() });
             }
 
-            return await response.ToJsonStreamAsync();
+            return response;
         }
     }
 }
