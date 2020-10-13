@@ -11,7 +11,7 @@ namespace SharpApi.AzureFunctions
     /// <summary>
     /// An endpoint that handles Azure Functions HTTP requests.
     /// </summary>
-    public static class AzureFunctionsEndpoint
+    public static class AzureFunctionsHttpEndpoint
     {
         /// <summary>
         /// Handles requests to the API.
