@@ -2,11 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+	<LangVersion>latestMajor</LangVersion>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/jonathanpotts/SharpAPI.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <Company>Jonathan Potts</Company>
+    <Authors>Jonathan Potts</Authors>
+    <Copyright>Copyright © 2020 Jonathan Potts</Copyright>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="3.0.9" />
-  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\SharpApi.AspNetCore\SharpApi.AspNetCore.csproj" />
