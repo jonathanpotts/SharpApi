@@ -12,7 +12,7 @@ namespace SharpApi.Aws.Lambda
     /// <summary>
     /// An endpoint that handles Lambda requests through proxy integration.
     /// </summary>
-    public static class LambdaProxyEndpoint
+    public static class AwsLambdaProxyEndpoint
     {
         /// <summary>
         /// Handles proxy integration requests to the API.

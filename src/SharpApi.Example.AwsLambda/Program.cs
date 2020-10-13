@@ -19,7 +19,7 @@ namespace SharpApi.Example.Aws.Lambda
         [LambdaSerializer(typeof(DefaultLambdaJsonSerializer))]
         public async Task<APIGatewayProxyResponse> Handler(APIGatewayProxyRequest request)
         {
-            return await LambdaProxyEndpoint.HandleAsync(request);
+            return await AwsLambdaProxyEndpoint.HandleAsync(request);
         }
     }
 }
