@@ -11,11 +11,11 @@
     <Authors>Jonathan Potts</Authors>
     <Copyright>Copyright © 2020 Jonathan Potts</Copyright>
   </PropertyGroup>
-	
+
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
-	
+
   <ItemGroup>
     <ProjectReference Include="..\SharpApi\SharpApi.csproj" />
   </ItemGroup>

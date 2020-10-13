@@ -1,10 +1,12 @@
 using Amazon.Lambda.APIGatewayEvents;
 using Amazon.Lambda.Core;
 using Amazon.Lambda.Serialization.SystemTextJson;
-using SharpApi.Aws.Lambda;
+using SharpApi.AwsLambda;
 using System.Threading.Tasks;
 
-namespace SharpApi.Example.Aws.Lambda
+[assembly: LambdaSerializer(typeof(DefaultLambdaJsonSerializer))]
+
+namespace SharpApi.Example.AwsLambda
 {
     /// <summary>
     /// The program used for handling AWS Lambda requests through API Gateway proxy integration.
@@ -16,7 +18,7 @@ namespace SharpApi.Example.Aws.Lambda
         /// </summary>
         /// <param name="request">API Gateway proxy request.</param>
         /// <returns>API Gateway proxy response.</returns>
-        [LambdaSerializer(typeof(DefaultLambdaJsonSerializer))]
+        
         public async Task<APIGatewayProxyResponse> Handler(APIGatewayProxyRequest request)
         {
             return await AwsLambdaProxyEndpoint.HandleAsync(request);

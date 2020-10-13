@@ -7,7 +7,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SharpApi.Aws.Lambda
+namespace SharpApi.AwsLambda
 {
     /// <summary>
     /// An endpoint that handles Lambda requests through proxy integration.

@@ -12,5 +12,5 @@
   "function-runtime": "dotnetcore3.1",
   "function-memory-size": 256,
   "function-timeout": 30,
-  "function-handler": "SharpApi.Example.Aws.Lambda::SharpApi.Example.Aws.Lambda.Function::FunctionHandler"
+  "function-handler": "SharpApi.Example.AwsLambda::SharpApi.Example.AwsLambda.Program::Handler"
 }
