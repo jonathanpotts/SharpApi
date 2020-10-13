@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SharpApi.AspNetCore\SharpApi.AspNetCore.csproj" />
     <ProjectReference Include="..\SharpApi\SharpApi.csproj" />
   </ItemGroup>
 

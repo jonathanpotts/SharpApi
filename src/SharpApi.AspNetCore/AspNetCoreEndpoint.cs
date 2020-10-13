@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Primitives;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -33,19 +32,7 @@ namespace SharpApi.AspNetCore
             using var apiRequest = new ApiRequest(headers, query, context.Request.Body);
             using var result = await endpoint.RunAsync(apiRequest);
 
-            foreach (var header in result.Headers ?? Enumerable.Empty<KeyValuePair<string, List<string>>>())
-            {
-                context.Response.Headers.Add(header.Key, new StringValues(header.Value.ToArray()));
-            }
-
-            context.Response.Headers.ContentLength = result.Body?.Length;
-
-            context.Response.StatusCode = (int)result.StatusCode;
-
-            if (context.Request.Method.ToUpper() != "HEAD")
-            {
-                await result.Body.CopyToAsync(context.Response.Body);
-            }
+            await new SharpApiResult(result).ExecuteAsync(context);
         }
     }
 }

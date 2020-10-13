@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using SharpApi.AspNetCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,8 +21,7 @@ namespace SharpApi.AzureFunctions
         /// <returns>Azure Functions HTTP response.</returns>
         public static async Task<IActionResult> HandleAsync(HttpRequest request, ILogger logger)
         {
-            var path = request.Path.ToString().Replace("/api", "");
-            var endpoint = ApiEndpointManager.GetApiEndpoint(request.Method, path);
+            var endpoint = ApiEndpointManager.GetApiEndpoint(request.Method, request.Path);
 
             if (endpoint == null)
             {
