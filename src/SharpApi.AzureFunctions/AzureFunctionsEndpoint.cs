@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using System.IO;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace SharpApi.AzureFunctions
@@ -20,19 +20,20 @@ namespace SharpApi.AzureFunctions
         /// <returns>Azure Functions HTTP response.</returns>
         public static async Task<IActionResult> HandleAsync(HttpRequest request, ILogger logger)
         {
-            logger.LogInformation("C# HTTP trigger function processed a request.");
+            var path = request.Path.ToString().Replace("/api", "");
+            var endpoint = ApiEndpointManager.GetApiEndpoint(request.Method, path);
 
-            string name = request.Query["name"];
+            if (endpoint == null)
+            {
+                return new NotFoundResult();
+            }
 
-            string requestBody = await new StreamReader(request.Body).ReadToEndAsync();
-            dynamic data = JsonConvert.DeserializeObject(requestBody);
-            name ??= data?.name;
+            var headers = request.Headers.ToDictionary(h => h.Key, h => (IList<string>)h.Value.ToList());
+            var query = request.Query.ToDictionary(q => q.Key, q => (IList<string>)q.Value.ToList());
 
-            string responseMessage = string.IsNullOrEmpty(name)
-                ? "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response."
-                : $"Hello, {name}. This HTTP triggered function executed successfully.";
+            using var apiRequest = new ApiRequest(headers, query, request.Body);
 
-            return new OkObjectResult(responseMessage);
+            return new SharpApiResult(await endpoint.RunAsync(apiRequest));
         }
     }
 }

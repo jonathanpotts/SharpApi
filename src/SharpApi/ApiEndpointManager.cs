@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition.Hosting;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 
@@ -31,8 +32,11 @@ namespace SharpApi
 
             if (!s_endpointTypes.TryGetValue(endpointKey, out var endpointType))
             {
+                var location = new FileInfo(Assembly.GetExecutingAssembly().Location).Directory.FullName;
+
                 // Load all assemblies bundled with the API runtime
-                new DirectoryCatalog(AppContext.BaseDirectory);
+                var catalog = new DirectoryCatalog(location);
+                var assemblies = AppDomain.CurrentDomain.GetAssemblies();
 
                 var routeEndpoints = AppDomain.CurrentDomain.GetAssemblies()
                     .SelectMany(a => a.GetTypes())
