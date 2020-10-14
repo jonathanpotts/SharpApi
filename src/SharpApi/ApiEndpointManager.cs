@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition.Hosting;
@@ -21,8 +20,9 @@ namespace SharpApi
         /// </summary>
         private static readonly Dictionary<string, Type> s_endpointTypes = new Dictionary<string, Type>();
 
-        public static ILogger Logger { get; set; }
-
+        /// <summary>
+        /// Service provider that handles endpoint requests.
+        /// </summary>
         public static IServiceProvider ServiceProvider { get; private set; }
 
         /// <summary>
@@ -54,6 +54,8 @@ namespace SharpApi
 
                 var serviceCollection = new ServiceCollection()
                     .AddRouting(options => { });
+
+                // TODO: Wire up logging support
 
                 foreach (var endpoint in endpoints)
                 {
