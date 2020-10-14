@@ -1,4 +1,9 @@
 ﻿using Amazon.Lambda.APIGatewayEvents;
+using Amazon.Lambda.Core;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Features;
+using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.Primitives;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -19,8 +24,30 @@ namespace SharpApi.AwsLambda
         /// </summary>
         /// <param name="input">Request data stream from API Gateway.</param>
         /// <returns>Response data stream to API Gateway.</returns>
-        public static async Task<APIGatewayProxyResponse> HandleAsync(APIGatewayProxyRequest request)
+        public static async Task<APIGatewayProxyResponse> HandleAsync(APIGatewayProxyRequest request, ILambdaContext context)
         {
+            var features = new FeatureCollection();
+            features.Set<IHttpRequestFeature>(new HttpRequestFeature()
+            {
+                Method = request.HttpMethod,
+                Path = request.Path,
+                Body = new MemoryStream(request.IsBase64Encoded ? Convert.FromBase64String(request.Body) : Encoding.UTF8.GetBytes(request.Body))
+            });
+            features.Set<IHttpResponseFeature>(new HttpResponseFeature());
+
+            var factory = new DefaultHttpContextFactory(ApiEndpointManager.ServiceProvider);
+            var httpContext = factory.Create(features);
+
+            var routeContext = new RouteContext(httpContext);
+            await ApiEndpointManager.Router.RouteAsync(routeContext);
+
+            var handler = routeContext.Handler;
+
+            if (handler == null)
+            {
+
+            }
+
             var endpoint = ApiEndpointManager.GetApiEndpoint(request.HttpMethod, request.Path);
 
             if (endpoint == null)
@@ -32,7 +59,7 @@ namespace SharpApi.AwsLambda
             }
 
             using var body = new MemoryStream(request.IsBase64Encoded ? Convert.FromBase64String(request.Body) : Encoding.UTF8.GetBytes(request.Body));
-            using var apiRequest = new ApiRequest(request.MultiValueHeaders, request.MultiValueQueryStringParameters, body);
+            using var apiRequest = new ApiRequest(request.MultiValueHeaders, request.MultiValueQueryStringParameters, null, body);
             using var result = await endpoint.RunAsync(apiRequest);
 
             var response = new APIGatewayProxyResponse

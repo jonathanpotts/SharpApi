@@ -17,11 +17,11 @@ namespace SharpApi.Example.AwsLambda
         /// An AWS Lambda function that calls the SharpAPI AWS Lambda proxy integrated function handler.
         /// </summary>
         /// <param name="request">API Gateway proxy request.</param>
+        /// <param name="context">Lambda conext.</param>
         /// <returns>API Gateway proxy response.</returns>
-        
-        public async Task<APIGatewayProxyResponse> Handler(APIGatewayProxyRequest request)
+        public async Task<APIGatewayProxyResponse> Handler(APIGatewayProxyRequest request, ILambdaContext context)
         {
-            return await AwsLambdaProxyEndpoint.HandleAsync(request);
+            return await AwsLambdaProxyEndpoint.HandleAsync(request, context);
         }
     }
 }

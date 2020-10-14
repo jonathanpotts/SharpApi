@@ -21,6 +21,11 @@ namespace SharpApi
         public IDictionary<string, IList<string>> Query { get; private set; }
 
         /// <summary>
+        /// Route values provided with the request.
+        /// </summary>
+        public IDictionary<string, object> RouteValues { get; private set; }
+
+        /// <summary>
         /// Body received with the request.
         /// </summary>
         public Stream Body { get; private set; }
@@ -30,11 +35,13 @@ namespace SharpApi
         /// </summary>
         /// <param name="headers">Headers received with the request.</param>
         /// <param name="query">Query string parameters received with the request.</param>
+        /// <param name="routeValues">Route values provided with the request.</param>
         /// <param name="body">Body received with the request.</param>
-        public ApiRequest(IDictionary<string, IList<string>> headers, IDictionary<string, IList<string>> query, Stream body)
+        public ApiRequest(IDictionary<string, IList<string>> headers, IDictionary<string, IList<string>> query, IDictionary<string, object> routeValues, Stream body)
         {
             Headers = headers;
             Query = query;
+            RouteValues = routeValues;
             Body = body;
         }
 
@@ -60,9 +67,10 @@ namespace SharpApi
         /// </summary>
         /// <param name="headers">Headers received with the request.</param>
         /// <param name="query">Query string parameters received with the request.</param>
+        /// <param name="routeValues">Route values provided with the request.</param>
         /// <param name="body">Body received with the request.</param>
-        public ApiRequest(IDictionary<string, IList<string>> headers, IDictionary<string, IList<string>> query, Stream body, bool bodyIsBase64Encoded = false)
-            : base(headers, query, body)
+        public ApiRequest(IDictionary<string, IList<string>> headers, IDictionary<string, IList<string>> query, IDictionary<string, object> routeValues, Stream body)
+            : base(headers, query, routeValues, body)
         {
             using var sr = new StreamReader(body);
             Model = JsonSerializer.Deserialize<TModel>(sr.ReadToEnd());
@@ -73,7 +81,7 @@ namespace SharpApi
         /// </summary>
         /// <param name="request">Generic API request.</param>
         public ApiRequest(ApiRequest request)
-            : this(request.Headers, request.Query, request.Body)
+            : this(request.Headers, request.Query, request.RouteValues, request.Body)
         {
         }
     }
