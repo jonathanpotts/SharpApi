@@ -6,11 +6,18 @@
         }
     },
     "logging": {
+        "logLevel": {
+            // This must be provided using the endpoint assembly name to receive logs from an endpoint
+            "SharpApi.Example": "Information"
+        },
         "applicationInsights": {
             "samplingExcludedTypes": "Request",
             "samplingSettings": {
                 "isEnabled": true
             }
         }
+    },
+    "tracing": {
+        "consoleLevel": "verbose"
     }
 }

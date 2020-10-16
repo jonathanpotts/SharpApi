@@ -1,4 +1,6 @@
 ﻿using Microsoft.Azure.Functions.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace SharpApi.AzureFunctions
 {
@@ -13,8 +15,6 @@ namespace SharpApi.AzureFunctions
         /// <param name="builder">Azure Functions host builder.</param>
         public override void Configure(IFunctionsHostBuilder builder)
         {
-            // TODO: Wire up Azure Functions logging
-
             Startup.ConfigureServices(builder.Services);
         }
     }
