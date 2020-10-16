@@ -16,8 +16,5 @@
                 "isEnabled": true
             }
         }
-    },
-    "tracing": {
-        "consoleLevel": "verbose"
     }
 }
