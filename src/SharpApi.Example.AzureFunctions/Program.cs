@@ -1,10 +1,13 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
 using SharpApi.AzureFunctions;
 using System.Threading.Tasks;
+
+[assembly: FunctionsStartup(typeof(AzureFunctionsStartup))]
 
 namespace SharpApi.Example.AzureFunctions
 {

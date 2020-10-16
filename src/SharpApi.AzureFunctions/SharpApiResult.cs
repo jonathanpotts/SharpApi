@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SharpApi.AspNetCore
+namespace SharpApi.AzureFunctions
 {
     /// <summary>
     /// An <see cref="IActionResult"/> that handles an <see cref="ApiResult"/>.
@@ -33,23 +33,18 @@ namespace SharpApi.AspNetCore
         /// <returns>A task that processes the result.</returns>
         public async Task ExecuteAsync(HttpContext context)
         {
-            context.Response.StatusCode = (int)_apiResult.StatusCode;
-
             foreach (var header in _apiResult.Headers ?? Enumerable.Empty<KeyValuePair<string, List<string>>>())
             {
                 context.Response.Headers.Add(header.Key, new StringValues(header.Value.ToArray()));
             }
 
-            var contentLength = _apiResult.Body?.Length ?? 0;
+            context.Response.Headers.ContentLength = _apiResult.Body?.Length;
 
-            if (contentLength > 0)
+            context.Response.StatusCode = (int)_apiResult.StatusCode;
+
+            if (context.Request.Method.ToUpper() != "HEAD")
             {
-                context.Response.ContentLength = contentLength;
-
-                if (context.Request.Method.ToUpper() != "HEAD")
-                {
-                    await _apiResult.Body.CopyToAsync(context.Response.Body);
-                }
+                await _apiResult.Body.CopyToAsync(context.Response.Body);
             }
         }
 

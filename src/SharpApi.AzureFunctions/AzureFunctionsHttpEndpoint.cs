@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Logging;
+using SharpApi.AspNetCore;
 using System.Threading.Tasks;
 
 namespace SharpApi.AzureFunctions
@@ -19,17 +19,14 @@ namespace SharpApi.AzureFunctions
         /// <returns>Azure Functions HTTP response.</returns>
         public static async Task<IActionResult> HandleAsync(HttpRequest request, ILogger logger)
         {
-            var routeContext = new RouteContext(request.HttpContext);
-            await ApiEndpointManager.Router.RouteAsync(routeContext);
+            var result = await AspNetCoreEndpoint.ProcessRequest(request.HttpContext);
 
-            var handler = routeContext.Handler;
-
-            if (handler == null)
+            if (result == null)
             {
                 return new NotFoundResult();
             }
 
-            return new RequestDelegateResult(handler);
+            return new SharpApiResult(result);
         }
     }
 }

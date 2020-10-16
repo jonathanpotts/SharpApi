@@ -11,7 +11,7 @@ namespace SharpApi.Example.AwsLambda
     /// <summary>
     /// The program used for handling AWS Lambda requests through API Gateway proxy integration.
     /// </summary>
-    public class Program
+    public class Program : AwsLambdaProgram
     {
         /// <summary>
         /// An AWS Lambda function that calls the SharpAPI AWS Lambda proxy integrated function handler.
