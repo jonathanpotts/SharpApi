@@ -25,10 +25,9 @@ namespace SharpApi.Example.AspNetCore
 
             app.UseHsts();
 
-            app.Use(async (context, next) =>
+            app.Run(async context =>
             {
                 await AspNetCoreEndpoint.HandleAsync(context);
-                await next();
             });
         }
     }

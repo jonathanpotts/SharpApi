@@ -1,4 +1,5 @@
-﻿using SharpApi.Example.Shared;
+﻿using Microsoft.Extensions.Logging;
+using SharpApi.Example.Shared;
 using System;
 using System.Threading.Tasks;
 
@@ -7,6 +8,13 @@ namespace SharpApi.Example
     [ApiEndpoint("weather")]
     public class WeatherEndpoint : ApiEndpoint
     {
+        private ILogger _logger;
+
+        public WeatherEndpoint(ILogger<WeatherEndpoint> logger)
+        {
+            _logger = logger;
+        }
+
         public override Task<ApiResult> RunAsync(ApiRequest request)
         {
             var random = new Random(unchecked((int)DateTime.Now.Date.Ticks));
@@ -29,6 +37,8 @@ namespace SharpApi.Example
                 Sunrise = sunrise,
                 Sunset = sunset
             };
+
+            _logger.LogInformation($"The high today is {high}.");
 
             return Task.FromResult<ApiResult>(new JsonResult(weather));
         }
