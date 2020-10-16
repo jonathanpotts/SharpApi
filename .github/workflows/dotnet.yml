@@ -9,21 +9,20 @@ on:
 jobs:
   build:
 
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: src
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2.3.2
-      - name: Set up .NET Core SDK
-        uses: actions/setup-dotnet@v1.7.0
-        with:
-          dotnet-version: 3.1.402
-      - name: Set up MSBuild
-        uses: microsoft/setup-msbuild@v1.0.1
-      - name: Restore NuGet packages
-        run: nuget restore
-      - name: Build
-        run: msbuild /t:rebuild /p:Configuration=Release
+    - uses: actions/checkout@v2.3.3
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1.7.2
+      with:
+        dotnet-version: 3.1.403
+    - name: Install dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+    - name: Test
+      run: dotnet test --no-restore --verbosity normal
