@@ -6,7 +6,7 @@ namespace SharpApi.Email
     /// <summary>
     /// Interface used to implement email sender services.
     /// </summary>
-    public interface IEmailSenderService
+    public interface IEmailSender
     {
         /// <summary>
         /// Sends the provided email message.
