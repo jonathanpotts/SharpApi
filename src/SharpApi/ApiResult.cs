@@ -13,7 +13,7 @@ namespace SharpApi
         /// <summary>
         /// HTTP status code to send with the response.
         /// </summary>
-        public HttpStatusCode StatusCode { get; set; }
+        public int StatusCode { get; set; }
 
         /// <summary>
         /// Headers to send with the response.

@@ -1,8 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-	<LangVersion>latestMajor</LangVersion>
+    <LangVersion>latestMajor</LangVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/jonathanpotts/SharpAPI.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
@@ -13,12 +13,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Azure.Functions.Extensions" Version="1.1.0" />
+    <PackageReference Include="MongoDB.Driver" Version="2.11.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SharpApi.AspNetCore\SharpApi.AspNetCore.csproj" />
-    <ProjectReference Include="..\SharpApi\SharpApi.csproj" />
+    <ProjectReference Include="..\SharpApi.Data\SharpApi.Data.csproj" />
   </ItemGroup>
 
 </Project>

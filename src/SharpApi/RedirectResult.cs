@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Net;
+﻿using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 
 namespace SharpApi
 {
@@ -17,8 +17,8 @@ namespace SharpApi
         public RedirectResult(string url, bool permanent = false, bool preserveMethod = false)
         {
             StatusCode = permanent
-                ? (preserveMethod ? HttpStatusCode.PermanentRedirect : HttpStatusCode.Moved)
-                : (preserveMethod ? HttpStatusCode.TemporaryRedirect : HttpStatusCode.Found);
+                ? (preserveMethod ? StatusCodes.Status308PermanentRedirect : StatusCodes.Status301MovedPermanently)
+                : (preserveMethod ? StatusCodes.Status307TemporaryRedirect : StatusCodes.Status302Found);
 
             Headers = new Dictionary<string, List<string>>
             {

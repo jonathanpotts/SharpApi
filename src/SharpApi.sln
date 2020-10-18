@@ -21,9 +21,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpApi.AzureFunctions", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpApi.Example.AwsLambda", "SharpApi.Example.AwsLambda\SharpApi.Example.AwsLambda.csproj", "{75617376-E996-4C27-8CB4-F857A74178BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpApi.Email", "SharpApi.Email\SharpApi.Email.csproj", "{809D21BB-68BD-4473-8A89-326FE77D64BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpApi.Email", "SharpApi.Email\SharpApi.Email.csproj", "{809D21BB-68BD-4473-8A89-326FE77D64BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpApi.Email.Smtp", "SharpApi.Email.Smtp\SharpApi.Email.Smtp.csproj", "{FDCAC80D-3D0F-4B78-A743-A85138BB0EDD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpApi.Email.Smtp", "SharpApi.Email.Smtp\SharpApi.Email.Smtp.csproj", "{FDCAC80D-3D0F-4B78-A743-A85138BB0EDD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpApi.Email.SendGrid", "SharpApi.Email.SendGrid\SharpApi.Email.SendGrid.csproj", "{98EFC826-3992-48D5-9054-765C8AFBC030}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpApi.Data", "SharpApi.Data\SharpApi.Data.csproj", "{91B0938C-E0CB-49CF-BD75-9DFD071A205D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpApi.Data.MongoDB", "SharpApi.Data.MongoDB\SharpApi.Data.MongoDB.csproj", "{F428C8D0-A882-41B1-8FD6-CADD7F9373CD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpApi.Data.SqlServer", "SharpApi.Data.SqlServer\SharpApi.Data.SqlServer.csproj", "{A2E6527C-524A-4424-B183-00B214CE4443}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +83,22 @@ Global
 		{FDCAC80D-3D0F-4B78-A743-A85138BB0EDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FDCAC80D-3D0F-4B78-A743-A85138BB0EDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FDCAC80D-3D0F-4B78-A743-A85138BB0EDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98EFC826-3992-48D5-9054-765C8AFBC030}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98EFC826-3992-48D5-9054-765C8AFBC030}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98EFC826-3992-48D5-9054-765C8AFBC030}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98EFC826-3992-48D5-9054-765C8AFBC030}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91B0938C-E0CB-49CF-BD75-9DFD071A205D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91B0938C-E0CB-49CF-BD75-9DFD071A205D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91B0938C-E0CB-49CF-BD75-9DFD071A205D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91B0938C-E0CB-49CF-BD75-9DFD071A205D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F428C8D0-A882-41B1-8FD6-CADD7F9373CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F428C8D0-A882-41B1-8FD6-CADD7F9373CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F428C8D0-A882-41B1-8FD6-CADD7F9373CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F428C8D0-A882-41B1-8FD6-CADD7F9373CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2E6527C-524A-4424-B183-00B214CE4443}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2E6527C-524A-4424-B183-00B214CE4443}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2E6527C-524A-4424-B183-00B214CE4443}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2E6527C-524A-4424-B183-00B214CE4443}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

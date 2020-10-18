@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 using System.IO;
-using System.Net;
 using System.Text;
 using System.Text.Json;
 
@@ -16,7 +16,7 @@ namespace SharpApi
         /// </summary>
         /// <param name="obj">Object to return.</param>
         /// <param name="statusCode">HTTP status code to return.</param>
-        public JsonResult(object obj, HttpStatusCode statusCode = HttpStatusCode.OK)
+        public JsonResult(object obj, int statusCode = StatusCodes.Status200OK)
         {
             Body = new MemoryStream(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(obj, obj.GetType())));
 

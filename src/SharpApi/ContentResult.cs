@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 using System.IO;
-using System.Net;
 
 namespace SharpApi
 {
@@ -15,7 +15,7 @@ namespace SharpApi
         /// <param name="content">Raw data to return.</param>
         /// <param name="contentType">Content MIME type for raw data.</param>
         /// <param name="statusCode">HTTP status code to return.</param>
-        public ContentResult(Stream content, string contentType, HttpStatusCode statusCode = HttpStatusCode.OK)
+        public ContentResult(Stream content, string contentType, int statusCode = StatusCodes.Status200OK)
         {
             Body = content;
 
