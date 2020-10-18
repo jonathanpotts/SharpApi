@@ -1,15 +1,11 @@
 ﻿using Amazon.Lambda.APIGatewayEvents;
 using Amazon.Lambda.Core;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Features;
-using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Primitives;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -36,7 +32,7 @@ namespace SharpApi.AwsLambda
             {
                 return new APIGatewayProxyResponse
                 {
-                    StatusCode = (int)HttpStatusCode.NotFound
+                    StatusCode = StatusCodes.Status404NotFound
                 };
             }
 
@@ -54,7 +50,7 @@ namespace SharpApi.AwsLambda
 
             var response = new APIGatewayProxyResponse
             {
-                StatusCode = (int)result.StatusCode,
+                StatusCode = result.StatusCode,
                 MultiValueHeaders = result.Headers.ToDictionary(d => d.Key, d => (IList<string>)d.Value)
             };
 

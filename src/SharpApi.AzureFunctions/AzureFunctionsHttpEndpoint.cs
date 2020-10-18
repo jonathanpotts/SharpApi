@@ -23,7 +23,7 @@ namespace SharpApi.AzureFunctions
 
             if (result == null)
             {
-                return new NotFoundResult();
+                return new SharpApiResult(new StatusCodeResult(StatusCodes.Status404NotFound));
             }
 
             return new SharpApiResult(result);

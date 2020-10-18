@@ -20,10 +20,11 @@ namespace SharpApi
                     return s_endpointTypes;
                 }
 
-                var location = new FileInfo(Assembly.GetExecutingAssembly().Location).Directory.FullName;
+                var location = new FileInfo(Assembly.GetExecutingAssembly().Location).DirectoryName;
                 new DirectoryCatalog(location);
 
-                var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+                var assemblies = AppDomain.CurrentDomain.GetAssemblies()
+                    .Where(a => !a.IsDynamic && new FileInfo(a.Location).DirectoryName == location);
 
                 s_endpointTypes = assemblies.SelectMany(a => a.GetTypes())
                     .Where(t => typeof(ApiEndpoint).IsAssignableFrom(t))

@@ -33,7 +33,7 @@ namespace SharpApi.AspNetCore
         /// <returns>A task that processes the result.</returns>
         public async Task ExecuteAsync(HttpContext context)
         {
-            context.Response.StatusCode = (int)_apiResult.StatusCode;
+            context.Response.StatusCode = _apiResult.StatusCode;
 
             foreach (var header in _apiResult.Headers ?? Enumerable.Empty<KeyValuePair<string, List<string>>>())
             {
