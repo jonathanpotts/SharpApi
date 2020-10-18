@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 
+#if NETSTANDARD2_0
+
 namespace SharpApi
 {
     /// <summary>
@@ -22,3 +24,5 @@ namespace SharpApi
         }
     }
 }
+
+#endif
