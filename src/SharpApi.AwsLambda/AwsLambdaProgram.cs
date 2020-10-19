@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
 
@@ -19,13 +20,20 @@ namespace SharpApi.AwsLambda
         /// </summary>
         public AwsLambdaProgram()
         {
+            var configBuilder = new ConfigurationBuilder();
+            Startup.ConfigureAppConfiguration(configBuilder);
+            var configuration = (IConfiguration)configBuilder.Build();
+
             var services = new ServiceCollection();
+
+            services.AddSingleton(configuration);
+
             services.AddLogging(configure =>
             {
                 configure.AddConsole();
             });
 
-            Startup.ConfigureServices(services);
+            Startup.ConfigureServices(services, configuration);
 
             ServiceProvider = services.BuildServiceProvider();
         }

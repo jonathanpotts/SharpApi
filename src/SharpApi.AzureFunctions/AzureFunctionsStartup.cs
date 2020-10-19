@@ -13,7 +13,7 @@ namespace SharpApi.AzureFunctions
         /// <param name="builder">Azure Functions host builder.</param>
         public override void Configure(IFunctionsHostBuilder builder)
         {
-            Startup.ConfigureServices(builder.Services);
+            Startup.ConfigureServices(builder.Services, builder.GetContext().Configuration);
         }
     }
 }

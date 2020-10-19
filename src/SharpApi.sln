@@ -25,13 +25,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpApi.Email", "SharpApi.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpApi.Email.Smtp", "SharpApi.Email.Smtp\SharpApi.Email.Smtp.csproj", "{FDCAC80D-3D0F-4B78-A743-A85138BB0EDD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpApi.Email.SendGrid", "SharpApi.Email.SendGrid\SharpApi.Email.SendGrid.csproj", "{98EFC826-3992-48D5-9054-765C8AFBC030}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpApi.Email.SendGrid", "SharpApi.Email.SendGrid\SharpApi.Email.SendGrid.csproj", "{98EFC826-3992-48D5-9054-765C8AFBC030}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpApi.Data", "SharpApi.Data\SharpApi.Data.csproj", "{91B0938C-E0CB-49CF-BD75-9DFD071A205D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpApi.Data", "SharpApi.Data\SharpApi.Data.csproj", "{91B0938C-E0CB-49CF-BD75-9DFD071A205D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpApi.Data.MongoDB", "SharpApi.Data.MongoDB\SharpApi.Data.MongoDB.csproj", "{F428C8D0-A882-41B1-8FD6-CADD7F9373CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpApi.Data.MongoDB", "SharpApi.Data.MongoDB\SharpApi.Data.MongoDB.csproj", "{F428C8D0-A882-41B1-8FD6-CADD7F9373CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpApi.Data.SqlServer", "SharpApi.Data.SqlServer\SharpApi.Data.SqlServer.csproj", "{A2E6527C-524A-4424-B183-00B214CE4443}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpApi.Data.SqlServer", "SharpApi.Data.SqlServer\SharpApi.Data.SqlServer.csproj", "{A2E6527C-524A-4424-B183-00B214CE4443}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpApi.Secrets.AzureKeyVault", "SharpApi.Secrets.AzureKeyVault\SharpApi.Secrets.AzureKeyVault.csproj", "{2826D4EA-A7F4-4B4C-87F1-4A47FFD17FA0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -99,6 +101,10 @@ Global
 		{A2E6527C-524A-4424-B183-00B214CE4443}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A2E6527C-524A-4424-B183-00B214CE4443}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A2E6527C-524A-4424-B183-00B214CE4443}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2826D4EA-A7F4-4B4C-87F1-4A47FFD17FA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2826D4EA-A7F4-4B4C-87F1-4A47FFD17FA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2826D4EA-A7F4-4B4C-87F1-4A47FFD17FA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2826D4EA-A7F4-4B4C-87F1-4A47FFD17FA0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
