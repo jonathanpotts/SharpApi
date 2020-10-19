@@ -17,6 +17,23 @@ namespace SharpApi.AwsLambda
     public static class AwsLambdaProxyEndpoint
     {
         /// <summary>
+        /// Text-based content types.
+        /// </summary>
+        private static readonly string[] s_textContentTypes =
+        {
+            "text/plain",
+            "text/csv",
+            "text/html",
+            "text/css",
+            "text/javascript",
+            "application/javascript",
+            "application/json",
+            "application/ld+json",
+            "text/xml",
+            "application/xml"
+        };
+
+        /// <summary>
         /// Handles proxy integration requests to the API.
         /// </summary>
         /// <param name="input">Request data stream from API Gateway.</param>
@@ -73,8 +90,18 @@ namespace SharpApi.AwsLambda
 
             if (request.HttpMethod.ToUpper() != "HEAD")
             {
-                response.Body = Convert.ToBase64String(bytes);
-                response.IsBase64Encoded = true;
+                var contentType = result.Headers["Content-Type"]?.FirstOrDefault();
+
+                if (contentType != null && s_textContentTypes.Contains(contentType.Split(';').First().Trim().ToLower()))
+                {
+                    response.Body = Encoding.UTF8.GetString(bytes);
+                    response.IsBase64Encoded = false;
+                }
+                else
+                {
+                    response.Body = Convert.ToBase64String(bytes);
+                    response.IsBase64Encoded = true;
+                }
             }
 
             return response;
