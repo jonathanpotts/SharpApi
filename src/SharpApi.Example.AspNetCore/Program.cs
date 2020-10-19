@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using SharpApi.AspNetCore;
 
 namespace SharpApi.Example.AspNetCore
 {
@@ -11,7 +12,7 @@ namespace SharpApi.Example.AspNetCore
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
+            SharpApiHost.CreateBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();

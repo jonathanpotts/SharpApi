@@ -9,9 +9,11 @@
     <Company>Jonathan Potts</Company>
     <Authors>Jonathan Potts</Authors>
     <Copyright>Copyright © 2020 Jonathan Potts</Copyright>
+    <UserSecretsId>c98e134f-5cb2-4c6c-9b49-857a9bcc9599</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SharpApi.Email.SendGrid\SharpApi.Email.SendGrid.csproj" />
     <ProjectReference Include="..\SharpApi.Example.Shared\SharpApi.Example.Shared.csproj" />
     <ProjectReference Include="..\SharpApi\SharpApi.csproj" />
   </ItemGroup>

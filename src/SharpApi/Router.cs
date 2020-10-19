@@ -31,7 +31,7 @@ namespace SharpApi
         {
             _serviceProvider = serviceProvider;
 
-            var endpoints = ApiEndpointManager.EndpointTypes
+            var endpoints = ApiTypeManager.EndpointTypes
                 .Select(t => (Type: t, Attribute: t.GetCustomAttribute<ApiEndpointAttribute>()));
 
             foreach (var endpoint in endpoints)

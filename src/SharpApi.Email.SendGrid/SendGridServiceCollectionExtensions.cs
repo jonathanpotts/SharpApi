@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace SharpApi.Email.SendGrid
 {
@@ -11,9 +12,11 @@ namespace SharpApi.Email.SendGrid
         /// Adds <see cref="SendGridEmailSender"/> to the service collection.
         /// </summary>
         /// <param name="services">Service collection.</param>
-        public static void AddSendGridEmailSender(this IServiceCollection services)
+        public static void AddSendGridEmailSender(this IServiceCollection services, Action<SendGridOptions> options)
         {
-            services.AddSingleton<IEmailSender, SendGridEmailSender>();
+            services.AddOptions<SendGridOptions>().Configure(options);
+
+            services.AddHttpClient<IEmailSender, SendGridEmailSender>();
         }
     }
 }
