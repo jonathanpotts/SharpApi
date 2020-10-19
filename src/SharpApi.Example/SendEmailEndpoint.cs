@@ -1,5 +1,6 @@
-﻿using SharpApi.Email;
-using System;
+﻿using Microsoft.AspNetCore.Http;
+using SharpApi.Email;
+using System.Net.Mail;
 using System.Threading.Tasks;
 
 namespace SharpApi.Example
@@ -14,9 +15,18 @@ namespace SharpApi.Example
             _emailSender = emailSender;
         }
 
-        public override Task<ApiResult> RunAsync(ApiRequest request)
+        public override async Task<ApiResult> RunAsync(ApiRequest request)
         {
-            throw new NotImplementedException();
+            using var msg = new MailMessage();
+
+            msg.From = new MailAddress("jonathanpotts@outlook.com", "Jonathan Potts");
+            msg.To.Add(new MailAddress("jonathanpotts@outlook.com", "Jonathan Potts"));
+            msg.Subject = "This is a test.";
+            msg.Body = "Lorem ipsum dolor sit amet...";
+
+            await _emailSender.SendAsync(msg);
+
+            return new StatusCodeResult(StatusCodes.Status200OK);
         }
     }
 }

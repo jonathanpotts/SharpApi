@@ -1,4 +1,6 @@
 ﻿using MailKit.Net.Smtp;
+using MailKit.Security;
+using Microsoft.Extensions.Options;
 using MimeKit;
 using System;
 using System.Net.Mail;
@@ -14,15 +16,23 @@ namespace SharpApi.Email.Smtp
     public class SmtpEmailSender : IEmailSender, IDisposable
     {
         /// <summary>
+        /// SMTP configuration options.
+        /// </summary>
+        private readonly IOptions<SmtpOptions> _options;
+
+        /// <summary>
         /// SMTP client.
         /// </summary>
         private readonly ISmtpClient _smtpClient;
 
         /// <summary>
-        /// Initializes the SMTP email sender service.
+        /// Creates an instance of <see cref="SmtpEmailSender"/>.
         /// </summary>
-        public SmtpEmailSender()
+        /// <param name="options">SMTP configuration options.</param>
+        public SmtpEmailSender(IOptions<SmtpOptions> options)
         {
+            _options = options;
+
             var smtpClient = new SmtpClient();
 
             _smtpClient = smtpClient;
@@ -32,7 +42,24 @@ namespace SharpApi.Email.Smtp
         {
             var mimeMessage = (MimeMessage)message;
 
-            await _smtpClient.SendAsync(mimeMessage);
+            if (!_smtpClient.IsConnected)
+            {
+                var secureSocketOptions = _options.Value.Encryption switch
+                {
+                    SmtpEncryption.None => SecureSocketOptions.None,
+                    SmtpEncryption.SslTls => SecureSocketOptions.SslOnConnect,
+                    SmtpEncryption.StartTls => SecureSocketOptions.StartTls,
+                    _ => SecureSocketOptions.Auto
+                };
+
+                await _smtpClient.ConnectAsync(_options.Value.Host, _options.Value.Port, secureSocketOptions);
+            }
+
+            if (!_smtpClient.IsAuthenticated && 
+                (!string.IsNullOrEmpty(_options.Value.Username) || !string.IsNullOrEmpty(_options.Value.Password)))
+            {
+                await _smtpClient.AuthenticateAsync(_options.Value.Username, _options.Value.Password);
+            }
         }
 
         public void Dispose()
