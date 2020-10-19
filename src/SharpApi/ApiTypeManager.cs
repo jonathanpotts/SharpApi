@@ -76,6 +76,7 @@ namespace SharpApi
         /// <summary>
         /// API startup type.
         /// </summary>
+        /// <exception cref="AmbiguousMatchException">Thrown when there is more than one implementation of <see cref="IApiStartup"/>.</exception>
         public static Type StartupType
         {
             get

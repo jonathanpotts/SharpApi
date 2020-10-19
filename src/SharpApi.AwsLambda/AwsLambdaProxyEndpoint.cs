@@ -43,7 +43,10 @@ namespace SharpApi.AwsLambda
             var router = AwsLambdaProgram.ServiceProvider.GetService<IRouter>();
 
             var routeValues = new Dictionary<string, object>();
-            var endpoint = router.Route(request.HttpMethod, request.Path, routeValues);
+
+            ApiEndpoint endpoint;
+
+            endpoint = router.Route(request.HttpMethod, request.Path, routeValues);
 
             if (endpoint == null)
             {
@@ -68,7 +71,7 @@ namespace SharpApi.AwsLambda
             var response = new APIGatewayProxyResponse
             {
                 StatusCode = result.StatusCode,
-                MultiValueHeaders = result.Headers.ToDictionary(d => d.Key, d => (IList<string>)d.Value)
+                MultiValueHeaders = result.Headers
             };
 
             byte[] bytes;

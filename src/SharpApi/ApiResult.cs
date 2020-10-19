@@ -18,7 +18,7 @@ namespace SharpApi
         /// <summary>
         /// Headers to send with the response.
         /// </summary>
-        public Dictionary<string, List<string>> Headers { get; set; }
+        public IDictionary<string, IList<string>> Headers { get; set; }
 
         /// <summary>
         /// Body to send with the response.

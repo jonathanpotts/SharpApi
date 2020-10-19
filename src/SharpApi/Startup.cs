@@ -25,6 +25,7 @@ namespace SharpApi
         /// <summary>
         /// API-specific startup implementation.
         /// </summary>
+        /// <exception cref="MissingMemberException">Thrown when the implementation of <see cref="IApiStartup"/> does not contain a default constructor.</exception>
         private static IApiStartup ApiStartup
         {
             get
@@ -67,6 +68,7 @@ namespace SharpApi
 
             configurationBuilder.AddJsonFile("appsettings.json", true);
             configurationBuilder.AddJsonFile($"appsettings.{ApiEnvironment.EnvironmentName}.json", true);
+            configurationBuilder.AddJsonFile("local.settings.json", true);
 
             configurationBuilder.AddEnvironmentVariables();
 

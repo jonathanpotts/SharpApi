@@ -19,7 +19,7 @@ namespace SharpApi
         {
             Body = content;
 
-            Headers = new Dictionary<string, List<string>>
+            Headers = new Dictionary<string, IList<string>>
             {
                 { "Content-Type", new List<string> { contentType } }
             };

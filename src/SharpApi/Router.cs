@@ -21,7 +21,7 @@ namespace SharpApi
         /// <summary>
         /// Collection that maps route template matchers to endpoints.
         /// </summary>
-        private readonly Dictionary<string, Dictionary<TemplateMatcher, Type>> _endpoints = new Dictionary<string, Dictionary<TemplateMatcher, Type>>();
+        private readonly Dictionary<TemplateMatcher, (IList<string>, Type)> _endpoints = new Dictionary<TemplateMatcher, (IList<string>, Type)>();
 
         /// <summary>
         /// Creates a router that uses <see cref="ApiEndpoint"/> sub-classes for endpoints.
@@ -39,15 +39,11 @@ namespace SharpApi
                 var template = TemplateParser.Parse(endpoint.Attribute.Route);
                 var matcher = new TemplateMatcher(template, GetDefaults(template));
 
-                foreach (var method in endpoint.Attribute.Methods.Select(m => m.ToUpper()).Distinct())
-                {
-                    if (!_endpoints.TryGetValue(method, out var dictionary))
-                    {
-                        dictionary = new Dictionary<TemplateMatcher, Type>();
-                        _endpoints.Add(method, dictionary);
-                    }
+                var methods = endpoint.Attribute.Methods.Select(m => m.ToUpper()).Distinct().ToList();
 
-                    dictionary.Add(matcher, endpoint.Type);
+                if (methods.Any())
+                {
+                    _endpoints.Add(matcher, (methods, endpoint.Type));
                 }
             }
         }
@@ -71,35 +67,41 @@ namespace SharpApi
 
             return result;
         }
-
+        
         public ApiEndpoint Route(string method, string path, IDictionary<string, object> routeValues = null)
         {
-            if (!_endpoints.TryGetValue(method.ToUpper(), out var dictionary))
-            {
-                return null;
-            }
-
+            List<(TemplateMatcher, IList<string>)> matchedMatchers = new List<(TemplateMatcher, IList<string>)>();
             Type endpointType = null;
             RouteValueDictionary values = null;
 
-            foreach (var (matcher, type) in dictionary)
+            foreach (var (matcher, (methods, type)) in _endpoints)
             {
                 var matchValues = new RouteValueDictionary();
 
                 if (matcher.TryMatch(path, matchValues))
                 {
-                    if (endpointType != null)
-                    {
-                        throw new AmbiguousMatchException("More than one endpoint was found that matches the requested path.");
-                    }
+                    matchedMatchers.Add((matcher, methods));
 
-                    endpointType = type;
-                    values = matchValues;
+                    if (methods.Contains(method))
+                    {
+                        if (endpointType != null)
+                        {
+                            throw new AmbiguousMatchException("More than one endpoint was found that matches the requested path and method.");
+                        }
+
+                        endpointType = type;
+                        values = matchValues;
+                    }
                 }
             }
 
             if (endpointType == null)
             {
+                if (matchedMatchers.Any())
+                {
+                    return new MethodNotAllowedEndpoint(matchedMatchers.SelectMany(m => m.Item2).ToArray());
+                }
+
                 return null;
             }
 

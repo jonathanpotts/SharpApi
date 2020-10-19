@@ -20,7 +20,7 @@ namespace SharpApi
                 ? (preserveMethod ? StatusCodes.Status308PermanentRedirect : StatusCodes.Status301MovedPermanently)
                 : (preserveMethod ? StatusCodes.Status307TemporaryRedirect : StatusCodes.Status302Found);
 
-            Headers = new Dictionary<string, List<string>>
+            Headers = new Dictionary<string, IList<string>>
             {
                 { "Location", new List<string> { url } }
             };

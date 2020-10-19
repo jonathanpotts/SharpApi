@@ -35,7 +35,7 @@ namespace SharpApi.AspNetCore
         {
             context.Response.StatusCode = _apiResult.StatusCode;
 
-            foreach (var header in _apiResult.Headers ?? Enumerable.Empty<KeyValuePair<string, List<string>>>())
+            foreach (var header in _apiResult.Headers ?? Enumerable.Empty<KeyValuePair<string, IList<string>>>())
             {
                 context.Response.Headers.Add(header.Key, new StringValues(header.Value.ToArray()));
             }

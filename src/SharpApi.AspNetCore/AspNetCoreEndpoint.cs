@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -40,7 +41,10 @@ namespace SharpApi.AspNetCore
             var router = context.RequestServices.GetService<IRouter>();
 
             var routeValues = new Dictionary<string, object>();
-            var endpoint = router.Route(context.Request.Method, context.Request.Path, routeValues);
+
+            ApiEndpoint endpoint;
+
+            endpoint = router.Route(context.Request.Method, context.Request.Path, routeValues);
 
             if (endpoint == null)
             {

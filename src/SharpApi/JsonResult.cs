@@ -20,7 +20,7 @@ namespace SharpApi
         {
             Body = new MemoryStream(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(obj, obj.GetType())));
 
-            Headers = new Dictionary<string, List<string>>
+            Headers = new Dictionary<string, IList<string>>
             {
                 { "Content-Type", new List<string> { "application/json; charset=utf-8" } }
             };
