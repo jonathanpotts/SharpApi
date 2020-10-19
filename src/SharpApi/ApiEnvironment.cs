@@ -13,10 +13,7 @@ namespace SharpApi
         /// <returns>Boolean indicating if running in production environment.</returns>
         public static bool IsProduction()
         {
-            var environment = Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT")
-                ?? Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-
-            return environment == null || environment == "Production";
+            return EnvironmentName == "Production";
         }
 
         /// <summary>
@@ -25,10 +22,7 @@ namespace SharpApi
         /// <returns>Boolean indicating if running in staging environment.</returns>
         public static bool IsStaging()
         {
-            var environment = Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT")
-                ?? Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-
-            return environment != null && environment == "Staging";
+            return EnvironmentName == "Staging";
         }
 
         /// <summary>
@@ -37,16 +31,16 @@ namespace SharpApi
         /// <returns>Boolean indicating if running in development environment.</returns>
         public static bool IsDevelopment()
         {
-            var environment = Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT")
-                ?? Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-
-            return environment != null && environment == "Development";
+            return EnvironmentName == "Development";
         }
 
         /// <summary>
         /// Gets the name of the current environment.
         /// </summary>
         public static string EnvironmentName => Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT")
-                ?? Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production";
+            ?? Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")
+            ?? Environment.GetEnvironmentVariable("AZURE_FUNCTIONS_ENVIRONMENT")
+            ?? ((Environment.GetEnvironmentVariable("AWS_EXECUTION_ENV")?.Contains("AWS_DOTNET_LAMDBA_TEST_TOOL") ?? false) ? "Development" : null)
+            ?? "Production";
     }
 }

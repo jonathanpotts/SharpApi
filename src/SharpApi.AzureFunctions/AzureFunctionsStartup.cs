@@ -8,6 +8,17 @@ namespace SharpApi.AzureFunctions
     public class AzureFunctionsStartup : FunctionsStartup
     {
         /// <summary>
+        /// Configures the app configuration of the Azure Functions host.
+        /// </summary>
+        /// <param name="builder">Azure Functions configuration builder.</param>
+        public override void ConfigureAppConfiguration(IFunctionsConfigurationBuilder builder)
+        {
+            base.ConfigureAppConfiguration(builder);
+
+            Startup.ConfigureAppConfiguration(builder.ConfigurationBuilder);
+        }
+
+        /// <summary>
         /// Configures the Azure Functions host.
         /// </summary>
         /// <param name="builder">Azure Functions host builder.</param>

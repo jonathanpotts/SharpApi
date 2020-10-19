@@ -20,22 +20,25 @@ namespace SharpApi.AwsLambda
         /// </summary>
         public AwsLambdaProgram()
         {
-            var configBuilder = new ConfigurationBuilder();
-            Startup.ConfigureAppConfiguration(configBuilder);
-            var configuration = (IConfiguration)configBuilder.Build();
-
-            var services = new ServiceCollection();
-
-            services.AddSingleton(configuration);
-
-            services.AddLogging(configure =>
+            if (ServiceProvider == null)
             {
-                configure.AddConsole();
-            });
+                var configBuilder = new ConfigurationBuilder();
+                Startup.ConfigureAppConfiguration(configBuilder);
+                var configuration = (IConfiguration)configBuilder.Build();
 
-            Startup.ConfigureServices(services, configuration);
+                var services = new ServiceCollection();
 
-            ServiceProvider = services.BuildServiceProvider();
+                services.AddSingleton(configuration);
+
+                services.AddLogging(configure =>
+                {
+                    configure.AddConsole();
+                });
+
+                Startup.ConfigureServices(services, configuration);
+
+                ServiceProvider = services.BuildServiceProvider();
+            }
         }
     }
 }
