@@ -12,6 +12,53 @@ namespace SharpApi
     /// </summary>
     public static class Startup
     {
+        /// <summary>
+        /// Determines if the API-specific startup implementation has been initialized.
+        /// </summary>
+        private static bool s_apiStartupInitialized;
+
+        /// <summary>
+        /// API-specific startup implementation.
+        /// </summary>
+        private static IApiStartup s_apiStartup;
+
+        /// <summary>
+        /// API-specific startup implementation.
+        /// </summary>
+        private static IApiStartup ApiStartup
+        {
+            get
+            {
+                if (s_apiStartupInitialized)
+                {
+                    return s_apiStartup;
+                }
+
+                var apiStartupType = ApiTypeManager.StartupType;
+
+                if (apiStartupType != null)
+                {
+                    try
+                    {
+                        s_apiStartup = (IApiStartup)Activator.CreateInstance(apiStartupType);
+                    }
+                    catch (MissingMemberException ex)
+                    {
+                        throw new MissingMemberException($"The implementation of {nameof(IApiStartup)} must contain a default constructor.", ex);
+                    }
+                }
+
+                s_apiStartupInitialized = true;
+
+                return s_apiStartup;
+            }
+        }
+
+        /// <summary>
+        /// Configures the app configuration used by services.
+        /// </summary>
+        /// <param name="configurationBuilder"><see cref="IConfigurationBuilder"/> used to configure the app configuration.</param>
+        /// <param name="args">Command line arguments used to configure the app configuration.</param>
         public static void ConfigureAppConfiguration(IConfigurationBuilder configurationBuilder, string[] args = null)
         {
             var location = new FileInfo(Assembly.GetExecutingAssembly().Location).DirectoryName;
@@ -38,29 +85,17 @@ namespace SharpApi
                 }
             }
 
-            var startupType = ApiTypeManager.StartupType;
-
-            if (startupType != null)
-            {
-                var startup = (IApiStartup)Activator.CreateInstance(startupType);
-                startup.ConfigureAppConfiguration(configurationBuilder);
-            }
+            ApiStartup?.ConfigureAppConfiguration(configurationBuilder);
         }
 
         /// <summary>
         /// Configures the services used for dependency injection.
         /// </summary>
-        /// <param name="services">Service collection used for dependency injection.</param>
-        /// <param name="configuration">Configuration for the API.</param>
+        /// <param name="services"><see cref="IServiceCollection"/> used for dependency injection.</param>
+        /// <param name="configuration"><see cref="IConfiguration"/> containing the app configuration.</param>
         public static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
         {
-            var startupType = ApiTypeManager.StartupType;
-
-            if (startupType != null)
-            {
-                var startup = (IApiStartup)Activator.CreateInstance(startupType);
-                startup.ConfigureServices(services, configuration);
-            }
+            ApiStartup?.ConfigureServices(services, configuration);
 
             services.AddSingleton<IRouter, Router>();
 
