@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using SharpApi.Email.SendGrid;
+using SharpApi.Email.Smtp;
 
 namespace SharpApi.Example
 {
@@ -15,9 +15,13 @@ namespace SharpApi.Example
 
         public void ConfigureServices(IServiceCollection services, IConfiguration configuration)
         {
-            services.AddSendGridEmailSender(options =>
+            services.AddSmtpEmailSender(options =>
             {
-                options.ApiKey = configuration["SendGridApiKey"];
+                options.Host = configuration.GetValue<string>("SmtpHost");
+                options.Port = configuration.GetValue<int>("SmtpPort");
+                options.Username = configuration.GetValue<string>("SmtpUsername");
+                options.Password = configuration.GetValue<string>("SmtpPassword");
+                options.Encryption = SmtpEncryption.StartTls;
             });
         }
     }

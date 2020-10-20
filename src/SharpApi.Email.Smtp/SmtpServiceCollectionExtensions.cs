@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace SharpApi.Email.Smtp
 {
@@ -11,8 +12,10 @@ namespace SharpApi.Email.Smtp
         /// Adds <see cref="SmtpEmailSender"/> to the service collection.
         /// </summary>
         /// <param name="services">Service collection.</param>
-        public static void AddSmtpEmailSender(this IServiceCollection services)
+        public static void AddSmtpEmailSender(this IServiceCollection services, Action<SmtpOptions> options)
         {
+            services.AddOptions<SmtpOptions>().Configure(options);
+
             services.AddSingleton<IEmailSender, SmtpEmailSender>();
         }
     }

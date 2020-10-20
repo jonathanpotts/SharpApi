@@ -60,6 +60,8 @@ namespace SharpApi.Email.Smtp
             {
                 await _smtpClient.AuthenticateAsync(_options.Value.Username, _options.Value.Password);
             }
+
+            await _smtpClient.SendAsync(mimeMessage);
         }
 
         public void Dispose()
