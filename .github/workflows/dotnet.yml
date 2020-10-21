@@ -29,10 +29,11 @@ jobs:
       run: choco install docfx -y
     - name: Generate docs site
       run: docfx
+      working-directory: docs
       env:
         DOCFX_SOURCE_BRANCH_NAME: main
     - name: Deploy docs site to gh-pages branch
       uses: peaceiris/actions-gh-pages@v3.7.3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: .\bin\_site
+        publish_dir: .\docs\bin\_site
