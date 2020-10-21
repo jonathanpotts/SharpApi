@@ -49,7 +49,10 @@
     },
     "globalMetadata": {
       "_appTitle": "SharpAPI Docs",
-      "_enableSearch": true
+      "_enableSearch": true,
+      "_gitContribute": {
+        "apiSpecFolder": "docs/apiSpec"
+      }
     },
     "globalMetadataFiles": [],
     "fileMetadataFiles": [],
