@@ -4,6 +4,10 @@
 
 SharpAPI is an API toolset for creating REST APIs that can be deployed serverless or hosted on cloud or on-premise infrastructure from a shared [.NET](https://dot.net/) codebase.
 
+## Docs
+
+Docs are available at [docs.sharpapi.dev](https://docs.sharpapi.dev/).
+
 ## Compatibility
 
 |  | On-Premise, VM, or Platform Independent | [Microsoft Azure](https://azure.microsoft.com/) | [Amazon Web Services (AWS)](https://aws.amazon.com/) | [Google Cloud Platform (GCP)](https://cloud.google.com/) |
