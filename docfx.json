@@ -8,7 +8,7 @@
           ]
         }
       ],
-      "dest": "api",
+      "dest": "obj/api",
       "disableGitFeatures": false,
       "disableDefaultFilter": false
     }
@@ -22,22 +22,26 @@
         "files": [
           "api/**.yml",
           "api/index.md"
-        ]
+        ],
+        "src": "obj"
       },
       {
         "files": [
-          "docs/**.md",
-          "docs/**/toc.yml",
+          "**.md",
+          "**/toc.yml",
           "toc.yml",
           "*.md"
-        ]
+        ],
+        "src": "docs"
       }
     ],
     "resource": [
       {
         "files": [
-          "images/**"
-        ]
+          "images/**",
+          "CNAME"
+        ],
+        "src": "docs"
       }
     ],
     "overwrite": [
@@ -47,18 +51,19 @@
         ],
         "exclude": [
           "obj/**",
-          "_site/**"
+          "bin/**"
         ]
       }
     ],
-    "dest": "_site",
+    "dest": "bin/_site",
     "properties": {
       "TargetFramework": "netcoreapp3.1"
     },
     "globalMetadataFiles": [],
     "fileMetadataFiles": [],
     "template": [
-      "default"
+      "default",
+      "discordfx"
     ],
     "postProcessors": [],
     "markdownEngineName": "markdig",
