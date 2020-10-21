@@ -16,8 +16,6 @@ jobs:
       uses: actions/setup-dotnet@v1.7.2
       with:
         dotnet-version: 3.1.402
-    - name: Setup DocFX
-      run: choco install docfx -y
     - name: Install dependencies
       working-directory: src
       run: dotnet restore
@@ -27,6 +25,8 @@ jobs:
     - name: Test
       working-directory: src
       run: dotnet test --no-restore --verbosity normal
+    - name: Setup DocFX
+      run: choco install docfx -y
     - name: Generate docs site
       run: docfx
       env:
