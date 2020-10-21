@@ -18,8 +18,10 @@ jobs:
       with:
         dotnet-version: 3.1.402
     - name: Install dependencies
+      working-directory: src
       run: dotnet restore
     - name: Build
+      working-directory: src
       run: dotnet build --configuration Release --no-restore
     - name: Setup DocFX
       run: choco install docfx -y
