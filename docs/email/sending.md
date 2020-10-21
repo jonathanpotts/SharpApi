@@ -4,7 +4,7 @@ SharpAPI supports sending emails via SMTP or [SendGrid](https://sendgrid.com/).
 
 ## Configuring SMTP
 
-Add the **SharpApi.Email.Smtp** package to your API project. Then configure the service in your API project's **Startup.cs** by adding the following to your **ConfigureServices** method:
+Add the `SharpApi.Email.Smtp` package to your API project. Then configure the service in your API project's `Startup.cs` by adding the following to your `ConfigureServices` method:
 
 ```cs
 services.AddSmtpEmailSender(options =>
@@ -20,7 +20,7 @@ services.AddSmtpEmailSender(options =>
 
 ## Configuring SendGrid
 
-Add the **SharpApi.Email.SendGrid** package to your API project. Then configure the service in your API project's **Startup.cs** by adding the following to your **ConfigureServices** method:
+Add the `SharpApi.Email.SendGrid` package to your API project. Then configure the service in your API project's `Startup.cs` by adding the following to your `ConfigureServices` method:
 
 ```cs
 services.AddSendGridEmailSender(options =>
@@ -32,7 +32,7 @@ services.AddSendGridEmailSender(options =>
 
 ## Sending an email
 
-Use dependency injection to add an **IEmailSender** to your API endpoint and use it to send the email.
+Use dependency injection to add an `IEmailSender` to your API endpoint and use it to send the email.
 
 Example:
 
