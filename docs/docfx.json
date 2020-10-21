@@ -43,26 +43,22 @@
         ]
       }
     ],
-    "overwrite": [
-      {
-        "files": [
-          "apidoc/**.md"
-        ],
-        "exclude": [
-          "obj/**",
-          "bin/**"
-        ]
-      }
-    ],
     "dest": "bin/_site",
     "properties": {
       "TargetFramework": "netcoreapp3.1"
+    },
+    "globalMetadata": {
+      "_appTitle": "SharpAPI Docs",
+      "_enableSearch": true
     },
     "globalMetadataFiles": [],
     "fileMetadataFiles": [],
     "template": [
       "default"
     ],
+    "sitemap": {
+      "baseUrl": "https://docs.sharpapi.dev"
+    },
     "postProcessors": [],
     "markdownEngineName": "markdig",
     "noLangKeyword": false,
