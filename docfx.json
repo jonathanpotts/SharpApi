@@ -52,6 +52,9 @@
       }
     ],
     "dest": "_site",
+    "properties": {
+      "TargetFramework": "netcoreapp3.1"
+    },
     "globalMetadataFiles": [],
     "fileMetadataFiles": [],
     "template": [
