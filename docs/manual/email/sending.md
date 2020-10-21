@@ -1,4 +1,4 @@
-# Sending emails with SharpAPI
+# Sending emails
 
 SharpAPI supports sending emails via SMTP or [SendGrid](https://sendgrid.com/).
 
