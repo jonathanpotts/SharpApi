@@ -32,8 +32,7 @@
           "**/toc.yml",
           "toc.yml",
           "*.md"
-        ],
-        "src": "docs"
+        ]
       }
     ],
     "resource": [
@@ -41,8 +40,7 @@
         "files": [
           "images/**",
           "CNAME"
-        ],
-        "src": "docs"
+        ]
       }
     ],
     "overwrite": [
