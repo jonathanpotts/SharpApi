@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2.3.3
@@ -26,7 +26,7 @@ jobs:
       working-directory: src
       run: dotnet test --no-restore --verbosity normal
     - name: Setup DocFX
-      run: choco install docfx -y
+      run: brew install docfx
     - name: Generate docs site
       run: docfx
       working-directory: docs
@@ -36,4 +36,4 @@ jobs:
       uses: peaceiris/actions-gh-pages@v3.7.3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: .\docs\bin\_site
+        publish_dir: ./docs/bin/_site
