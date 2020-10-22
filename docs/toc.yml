@@ -4,3 +4,5 @@
 - name: API Reference
   href: obj/api/
   topicHref: obj/api/SharpApi.yml
+- name: GitHub
+  href: https://github.com/jonathanpotts/SharpAPI
