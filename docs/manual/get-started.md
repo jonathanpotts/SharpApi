@@ -28,7 +28,7 @@ public class HelloWorldEndpoint : ApiEndpoint
 
 If you are expecting a request body in the form of a JSON-serialized model object, you can instead inherit from [`SharpApi.ApiEndpoint<TModel>`](~/obj/api/SharpApi.ApiEndpoint-1.yml) and specify `TModel` as your model type.
 
-SharpAPI will then attempt to deserialize the request into an object of type `TModel` and provide it as the [`Model`](~/obj/api/SharpApi.ApiRequest-1.yml#SharpApi_ApiRequest_1_Model) property of the `ApiRequest<TModel>` parameter of your API endpoint's [`RunAsync(ApiRequest<TModel>)`](~/obj/api/SharpApi.ApiEndpoint-1.yml#SharpApi_ApiEndpoint_1_RunAsync_SharpApi_ApiRequest__0__) method.
+SharpAPI will then attempt to deserialize the request into an object of type `TModel` and provide it as the [`Model`](~/obj/api/SharpApi.ApiRequest-1.yml#SharpApi_ApiRequest_1_Model) property of the [`ApiRequest<TModel>`](~/obj/api/SharpApi.ApiRequest-1.yml) parameter of your API endpoint's [`RunAsync(ApiRequest<TModel>)`](~/obj/api/SharpApi.ApiEndpoint-1.yml#SharpApi_ApiEndpoint_1_RunAsync_SharpApi_ApiRequest__0__) method.
 
 **Example:**
 
