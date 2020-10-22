@@ -32,7 +32,7 @@ services.AddSendGridEmailSender(options =>
 
 ## Sending an email
 
-Use dependency injection to add an [~`IEmailSender`](/obj/api/SharpApi.Email.IEmailSender.yml) to your API endpoint and use it to send the email.
+Use dependency injection to add an [`IEmailSender`](~/obj/api/SharpApi.Email.IEmailSender.yml) to your API endpoint and use it to send the email.
 
 Example:
 
