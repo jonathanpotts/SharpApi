@@ -32,6 +32,11 @@ namespace SharpApi.Email.SendGrid
             _httpClient = httpClient;
         }
 
+        /// <summary>
+        /// Sends the provided email message.
+        /// </summary>
+        /// <param name="message">Email message to send.</param>
+        /// <returns>Task representing the status of sending the email.</returns>
         public async Task SendAsync(MailMessage message)
         {
             var client = new SendGridClient(_httpClient, _options.Value.ApiKey);

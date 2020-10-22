@@ -36,7 +36,8 @@ namespace SharpApi.AwsLambda
         /// <summary>
         /// Handles proxy integration requests to the API.
         /// </summary>
-        /// <param name="input">Request data stream from API Gateway.</param>
+        /// <param name="request">Request data stream from API Gateway.</param>
+        /// <param name="context">AWS Lambda context that the function is being executed in.</param>
         /// <returns>Response data stream to API Gateway.</returns>
         public static async Task<APIGatewayProxyResponse> HandleAsync(APIGatewayProxyRequest request, ILambdaContext context)
         {

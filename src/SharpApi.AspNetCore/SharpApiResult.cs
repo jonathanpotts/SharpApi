@@ -53,6 +53,11 @@ namespace SharpApi.AspNetCore
             }
         }
 
+        /// <summary>
+        /// Executes the result asynchronously.
+        /// </summary>
+        /// <param name="context">The context to execute the result in.</param>
+        /// <returns>A task that processes the result.</returns>
         public async Task ExecuteResultAsync(ActionContext context)
         {
             await ExecuteAsync(context.HttpContext);

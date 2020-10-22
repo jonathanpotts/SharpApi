@@ -6,6 +6,9 @@ using System.Reflection;
 
 namespace SharpApi
 {
+    /// <summary>
+    /// Utility methods for handling API reflection.
+    /// </summary>
     public static class ApiTypeManager
     {
         /// <summary>

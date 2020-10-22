@@ -45,6 +45,9 @@ namespace SharpApi
             Body = body;
         }
 
+        /// <summary>
+        /// Disposes resources used by the request.
+        /// </summary>
         public void Dispose()
         {
             Body.Dispose();

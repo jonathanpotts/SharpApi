@@ -4,13 +4,16 @@ using Microsoft.Extensions.Logging;
 
 namespace SharpApi.AspNetCore
 {
+    /// <summary>
+    /// Utility methods used for creating an ASP.NET Core host for use with SharpAPI.
+    /// </summary>
     public static class SharpApiHost
     {
         /// <summary>
-        /// 
+        /// Creates a <see cref="IHostBuilder"/> used for building a host to use with SharpAPI.
         /// </summary>
         /// <typeparam name="T">Type within the assembly to search for the <see cref="UserSecretsIdAttribute"/>.</typeparam>
-        /// <param name="args"></param>
+        /// <param name="args">Command line arguments to add to the app configuration.</param>
         /// <returns></returns>
         public static IHostBuilder CreateBuilder(string[] args)
         {

@@ -38,6 +38,11 @@ namespace SharpApi.Email.Smtp
             _smtpClient = smtpClient;
         }
 
+        /// <summary>
+        /// Sends the provided email message.
+        /// </summary>
+        /// <param name="message">Email message to send.</param>
+        /// <returns>Task representing the status of sending the email.</returns>
         public async Task SendAsync(MailMessage message)
         {
             var mimeMessage = (MimeMessage)message;
@@ -64,6 +69,9 @@ namespace SharpApi.Email.Smtp
             await _smtpClient.SendAsync(mimeMessage);
         }
 
+        /// <summary>
+        /// Disposes the resources used to send emails via SMTP.
+        /// </summary>
         public void Dispose()
         {
             if (_smtpClient?.IsConnected ?? false)

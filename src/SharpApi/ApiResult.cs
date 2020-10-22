@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net;
 
 namespace SharpApi
 {
@@ -25,6 +24,9 @@ namespace SharpApi
         /// </summary>
         public Stream Body { get; set; }
 
+        /// <summary>
+        /// Disposes resources used by the result.
+        /// </summary>
         public void Dispose()
         {
             Body.Dispose();
