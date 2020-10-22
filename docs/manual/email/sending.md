@@ -4,7 +4,7 @@ SharpAPI supports sending emails via SMTP or [SendGrid](https://sendgrid.com/).
 
 ## Configuring SMTP
 
-Add the [`SharpApi.Email.Smtp`](/obj/api/SharpApi.Email.Smtp.yml) package to your API project. Then configure the service in your API project's `Startup.cs` by adding the following to your [`ConfigureServices`](/obj/api/SharpApi.IApiStartup.yml#SharpApi_IApiStartup_ConfigureServices_Microsoft_Extensions_DependencyInjection_IServiceCollection_Microsoft_Extensions_Configuration_IConfiguration_) method:
+Add the [`SharpApi.Email.Smtp`](~/obj/api/SharpApi.Email.Smtp.yml) package to your API project. Then configure the service in your API project's `Startup.cs` by adding the following to your [`ConfigureServices`](~/obj/api/SharpApi.IApiStartup.yml#SharpApi_IApiStartup_ConfigureServices_Microsoft_Extensions_DependencyInjection_IServiceCollection_Microsoft_Extensions_Configuration_IConfiguration_) method:
 
 ```cs
 services.AddSmtpEmailSender(options =>
@@ -20,7 +20,7 @@ services.AddSmtpEmailSender(options =>
 
 ## Configuring SendGrid
 
-Add the [`SharpApi.Email.SendGrid`](/obj/api/SharpApi.Email.SendGrid.yml) package to your API project. Then configure the service in your API project's `Startup.cs` by adding the following to your [`ConfigureServices`](/obj/api/SharpApi.IApiStartup.yml#SharpApi_IApiStartup_ConfigureServices_Microsoft_Extensions_DependencyInjection_IServiceCollection_Microsoft_Extensions_Configuration_IConfiguration_) method:
+Add the [`SharpApi.Email.SendGrid`](~/obj/api/SharpApi.Email.SendGrid.yml) package to your API project. Then configure the service in your API project's `Startup.cs` by adding the following to your [`ConfigureServices`](~/obj/api/SharpApi.IApiStartup.yml#SharpApi_IApiStartup_ConfigureServices_Microsoft_Extensions_DependencyInjection_IServiceCollection_Microsoft_Extensions_Configuration_IConfiguration_) method:
 
 ```cs
 services.AddSendGridEmailSender(options =>
@@ -32,7 +32,7 @@ services.AddSendGridEmailSender(options =>
 
 ## Sending an email
 
-Use dependency injection to add an [`IEmailSender`](/obj/api/SharpApi.Email.IEmailSender.yml) to your API endpoint and use it to send the email.
+Use dependency injection to add an [~`IEmailSender`](/obj/api/SharpApi.Email.IEmailSender.yml) to your API endpoint and use it to send the email.
 
 Example:
 
