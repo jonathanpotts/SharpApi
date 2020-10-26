@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	  <TargetFramework>netcoreapp3.1</TargetFramework>
+	  <LangVersion>latestMajor</LangVersion>
+	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
+	  <RepositoryUrl>https://github.com/jonathanpotts/SharpAPI.git</RepositoryUrl>
+	  <RepositoryType>git</RepositoryType>
+	  <Company>Jonathan Potts</Company>
+	  <Authors>Jonathan Potts</Authors>
+	  <Copyright>Copyright © 2020 Jonathan Potts</Copyright>
+	  <Version>1.0.0-beta</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Google.Cloud.Functions.Hosting" Version="1.0.0-beta02" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SharpApi\SharpApi.csproj" />
+  </ItemGroup>
+
+</Project>
