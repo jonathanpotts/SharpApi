@@ -12,6 +12,7 @@ namespace SharpApi.Email.SendGrid
         /// Adds <see cref="SendGridEmailSender"/> to the service collection.
         /// </summary>
         /// <param name="services">Service collection.</param>
+        /// <param name="options">Action to configure SendGrid options.</param>
         public static void AddSendGridEmailSender(this IServiceCollection services, Action<SendGridOptions> options)
         {
             services.AddOptions<SendGridOptions>().Configure(options);

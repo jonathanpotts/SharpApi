@@ -4,6 +4,11 @@ SharpAPI supports sending emails via SMTP, [SendGrid](https://sendgrid.com/), or
 
 ## Configuring SMTP
 
+For information on configuration details for SMTP relays:
+
+* **Microsoft 365:** [How to set up a multifunction device or application to send email using Microsoft 365 or Office 365](https://docs.microsoft.com/exchange/mail-flow-best-practices/how-to-set-up-a-multifunction-device-or-application-to-send-email-using-microsoft-365-or-office-365)
+* **Google Workspace:** [SMTP relay: Route outgoing non-Gmail messages through Google](https://support.google.com/a/answer/2956491/)
+
 Add the [`SharpApi.Email.Smtp`](~/obj/api/SharpApi.Email.Smtp.yml) package to your API project.
 
 Then add the service to your API by adding the following to your API's [`ConfigureServices(IServiceCollection, IConfiguration)`](~/obj/api/SharpApi.IApiStartup.yml#SharpApi_IApiStartup_ConfigureServices_Microsoft_Extensions_DependencyInjection_IServiceCollection_Microsoft_Extensions_Configuration_IConfiguration_) method:
@@ -24,7 +29,11 @@ For more information about adding services to your API, see [Dependency Injectio
 
 ## Configuring SendGrid
 
-Add the [`SharpApi.Email.SendGrid`](~/obj/api/SharpApi.Email.SendGrid.yml) package to your API project. 
+For information on setting up SendGrid:
+
+* [Getting Started with the SendGrid API](https://sendgrid.com/docs/for-developers/sending-email/api-getting-started/)
+
+Add the [`SharpApi.Email.SendGrid`](~/obj/api/SharpApi.Email.SendGrid.yml) package to your API project.
 
 Then add the service to your API by adding the following to your API's [`ConfigureServices(IServiceCollection, IConfiguration)`](~/obj/api/SharpApi.IApiStartup.yml#SharpApi_IApiStartup_ConfigureServices_Microsoft_Extensions_DependencyInjection_IServiceCollection_Microsoft_Extensions_Configuration_IConfiguration_) method:
 
@@ -40,7 +49,11 @@ For more information about adding services to your API, see [Dependency Injectio
 
 ## Configuring Amazon Simple Email Service
 
-Add the [`SharpApi.Email.AmazonSimpleEmailService`](~/obj/api/SharpApi.Email.AmazonSimpleEmailService.yml) package to your API project. 
+For information on setting up Amazon Simple Email Service:
+
+* [Amazon SES Quick start](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/quick-start.html)
+
+Add the [`SharpApi.Email.AmazonSimpleEmailService`](~/obj/api/SharpApi.Email.AmazonSimpleEmailService.yml) package to your API project.
 
 Then add the service to your API by adding the following to your API's [`ConfigureServices(IServiceCollection, IConfiguration)`](~/obj/api/SharpApi.IApiStartup.yml#SharpApi_IApiStartup_ConfigureServices_Microsoft_Extensions_DependencyInjection_IServiceCollection_Microsoft_Extensions_Configuration_IConfiguration_) method:
 

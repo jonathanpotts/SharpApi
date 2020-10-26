@@ -12,6 +12,7 @@ namespace SharpApi.Email.Smtp
         /// Adds <see cref="SmtpEmailSender"/> to the service collection.
         /// </summary>
         /// <param name="services">Service collection.</param>
+        /// <param name="options">Action to configure SMTP options.</param>
         public static void AddSmtpEmailSender(this IServiceCollection services, Action<SmtpOptions> options)
         {
             services.AddOptions<SmtpOptions>().Configure(options);

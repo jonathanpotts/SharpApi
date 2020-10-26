@@ -12,6 +12,7 @@ namespace SharpApi.Email.AmazonSimpleEmailService
         /// Adds <see cref="AmazonSimpleEmailServiceEmailSender"/> to the service collection.
         /// </summary>
         /// <param name="services">Service collection.</param>
+        /// <param name="options">Action to configure Amazon Simple Email Service options.</param>
         public static void AddAmazonSimpleEmailServiceEmailSender(this IServiceCollection services, Action<AmazonSimpleEmailServiceOptions> options)
         {
             services.AddOptions<AmazonSimpleEmailServiceOptions>().Configure(options);
