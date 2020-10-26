@@ -20,7 +20,7 @@ namespace SharpApi.Example
             using var msg = new MailMessage();
 
             msg.From = new MailAddress("jonathanpotts@outlook.com", "Jonathan Potts");
-            msg.To.Add(new MailAddress("jonathanpotts@outlook.com", "Jonathan Potts"));
+            msg.To.Add(new MailAddress("success@simulator.amazonses.com", "AWS Simple Email Service Simulator"));
             msg.Subject = "This is a test.";
             msg.Body = "Lorem ipsum dolor sit amet...";
 

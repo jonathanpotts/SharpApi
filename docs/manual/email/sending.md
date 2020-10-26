@@ -1,6 +1,6 @@
 # Sending emails
 
-SharpAPI supports sending emails via SMTP or [SendGrid](https://sendgrid.com/).
+SharpAPI supports sending emails via SMTP, [SendGrid](https://sendgrid.com/), or [Amazon Simple Email Service](https://aws.amazon.com/ses/).
 
 ## Configuring SMTP
 
@@ -33,6 +33,24 @@ services.AddSendGridEmailSender(options =>
 {
     // Use your configuration here
     options.ApiKey = configuration.GetValue<string>("SendGridApiKey");
+});
+```
+
+For more information about adding services to your API, see [Dependency Injection (Services)](~/manual/fundamentals/dependency-injection-services.md).
+
+## Configuring Amazon Simple Email Service
+
+Add the [`SharpApi.Email.AmazonSimpleEmailService`](~/obj/api/SharpApi.Email.AmazonSimpleEmailService.yml) package to your API project. 
+
+Then add the service to your API by adding the following to your API's [`ConfigureServices(IServiceCollection, IConfiguration)`](~/obj/api/SharpApi.IApiStartup.yml#SharpApi_IApiStartup_ConfigureServices_Microsoft_Extensions_DependencyInjection_IServiceCollection_Microsoft_Extensions_Configuration_IConfiguration_) method:
+
+```cs
+services.AddAmazonSimpleEmailServiceEmailSender(options =>
+{
+    // Use your configuration here
+    options.AwsAccessKeyId = configuration.GetValue<string>("AwsAccessKeyId");
+    options.AwsSecretAccessKey = configuration.GetValue<string>("AwsSecretAccessKey");
+    options.AwsRegionSystemName = configuration.GetValue<string>("AwsRegionSystemName");
 });
 ```
 

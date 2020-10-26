@@ -13,7 +13,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SharpApi.Email.Smtp\SharpApi.Email.Smtp.csproj" />
+    <ProjectReference Include="..\SharpApi.Email.AmazonSimpleEmailService\SharpApi.Email.AmazonSimpleEmailService.csproj" />
     <ProjectReference Include="..\SharpApi.Example.Shared\SharpApi.Example.Shared.csproj" />
     <ProjectReference Include="..\SharpApi\SharpApi.csproj" />
   </ItemGroup>
