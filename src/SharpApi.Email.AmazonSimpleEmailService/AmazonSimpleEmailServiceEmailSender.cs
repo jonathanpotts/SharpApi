@@ -31,6 +31,11 @@ namespace SharpApi.Email.AmazonSimpleEmailService
             );
         }
 
+        /// <summary>
+        /// Sends the provided email message.
+        /// </summary>
+        /// <param name="message">Email message to send.</param>
+        /// <returns>Task representing the status of sending the email.</returns>
         public async Task SendAsync(MailMessage message)
         {
             var req = message.ToSendRawEmailRequest();
