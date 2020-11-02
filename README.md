@@ -21,5 +21,5 @@ Docs are available at [docs.sharpapi.dev](https://docs.sharpapi.dev/).
 | SMS | [Twilio SMS](https://www.twilio.com/sms/) | [Azure Communication Services](https://azure.microsoft.com/en-us/services/communication-services/) | [Amazon Simple Notification Service (SNS)](https://aws.amazon.com/sns/) |  |
 | Secrets / Configuration | User Secrets <br> Environment Variables <br> JSON Files <br> XML Files <br> INI Files <br> Key Per File | [Key Vault](https://azure.microsoft.com/services/key-vault/) | [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/) | [Secret Manager](https://cloud.google.com/secret-manager/) |
 
-<sup>1</sup> Relational database support available by using [Entity Framework Core](https://docs.microsoft.com/ef/core/).
+<sup>1</sup> Relational database support available by using [Entity Framework Core](https://docs.microsoft.com/ef/core/).<br>
 <sup>2</sup> Distributed cache support available by using [distributed caching in ASP.NET Core](https://docs.microsoft.com/aspnet/core/performance/caching/distributed).
