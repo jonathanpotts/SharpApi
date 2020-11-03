@@ -12,14 +12,4 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="AWSSDK.SimpleEmail" Version="3.5.0.34" />
-    <PackageReference Include="MimeKit" Version="2.9.2" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\SharpApi.Aws\SharpApi.Aws.csproj" />
-    <ProjectReference Include="..\SharpApi.Email\SharpApi.Email.csproj" />
-  </ItemGroup>
-
 </Project>

@@ -1,9 +1,9 @@
-﻿namespace SharpApi.Email.AmazonSimpleEmailService
+﻿namespace SharpApi.Aws
 {
     /// <summary>
-    /// Amazon Simple Email Service configuration options.
+    /// AWS configuration options.
     /// </summary>
-    public class AmazonSimpleEmailServiceOptions
+    public class AwsOptions
     {
         /// <summary>
         /// AWS Access Key Id.

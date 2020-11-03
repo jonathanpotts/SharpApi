@@ -1,6 +1,7 @@
 ﻿using Amazon;
 using Amazon.SimpleEmail;
 using Microsoft.Extensions.Options;
+using SharpApi.Aws;
 using System;
 using System.Net.Http;
 using System.Net.Mail;
@@ -22,7 +23,7 @@ namespace SharpApi.Email.AmazonSimpleEmailService
         /// Creates an instance of <see cref="AmazonSimpleEmailServiceEmailSender"/>.
         /// </summary>
         /// <param name="options">Amazon Simple Email Service configuration options.</param>
-        public AmazonSimpleEmailServiceEmailSender(IOptions<AmazonSimpleEmailServiceOptions> options)
+        public AmazonSimpleEmailServiceEmailSender(IOptions<AwsOptions> options)
         {
             _client = new AmazonSimpleEmailServiceClient(
                 options.Value.AwsAccessKeyId, 

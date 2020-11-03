@@ -39,6 +39,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpApi.Secrets.GoogleClou
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpApi.GoogleCloudFunctions", "SharpApi.GoogleCloudFunctions\SharpApi.GoogleCloudFunctions.csproj", "{6D08DA1F-A6BF-4E4C-ACDA-D2E74A0A1E3B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpApi.Aws", "SharpApi.Aws\SharpApi.Aws.csproj", "{CAB1EC81-228C-46D0-923F-78D7A9421A12}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -117,6 +119,10 @@ Global
 		{6D08DA1F-A6BF-4E4C-ACDA-D2E74A0A1E3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D08DA1F-A6BF-4E4C-ACDA-D2E74A0A1E3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D08DA1F-A6BF-4E4C-ACDA-D2E74A0A1E3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CAB1EC81-228C-46D0-923F-78D7A9421A12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAB1EC81-228C-46D0-923F-78D7A9421A12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAB1EC81-228C-46D0-923F-78D7A9421A12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAB1EC81-228C-46D0-923F-78D7A9421A12}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
