@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace SharpApi.Secrets.AwsSecretsManager
@@ -23,10 +24,26 @@ namespace SharpApi.Secrets.AwsSecretsManager
         private readonly IAmazonSecretsManager _secretsManager;
 
         /// <summary>
+        /// Cancellation token used for reloading data on an interval.
+        /// </summary>
+        private readonly CancellationTokenSource _cancellationToken;
+
+        /// <summary>
+        /// Interval used for reloading data.
+        /// </summary>
+        private readonly TimeSpan? _reloadInterval;
+
+        /// <summary>
+        /// Task used for reloading data on an interval.
+        /// </summary>
+        private Task _reloadTask;
+
+        /// <summary>
         /// Creates an instance of the configuration provider for AWS Secrets Manager.
         /// </summary>
         /// <param name="options">Options used to configure the configuration provider.</param>
-        public AwsSecretsManagerConfigurationProvider(AwsOptions options)
+        /// <param name="reloadInterval">Interval used for reloading data.</param>
+        public AwsSecretsManagerConfigurationProvider(AwsOptions options, TimeSpan? reloadInterval)
         {
             if (options == null)
             {
@@ -40,6 +57,19 @@ namespace SharpApi.Secrets.AwsSecretsManager
             {
                 _secretsManager = new AmazonSecretsManagerClient(options.AwsAccessKeyId, options.AwsSecretAccessKey);
             }
+
+            if (reloadInterval.HasValue)
+            {
+                if (reloadInterval.Value <= TimeSpan.Zero)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(reloadInterval), "The reload interval must be positive.");
+                }
+
+                _reloadInterval = reloadInterval;
+            }
+
+            _reloadTask = null;
+            _cancellationToken = new CancellationTokenSource();
         }
 
         /// <summary>
@@ -52,65 +82,94 @@ namespace SharpApi.Secrets.AwsSecretsManager
         /// </summary>
         private async Task LoadAsync()
         {
-            ListSecretsResponse listSecretsResponse = null;
-            var secretKeys = new List<string>();
-
-            do
+            async IAsyncEnumerable<string> GetSecretKeysAsync()
             {
-                ListSecretsRequest listSecretsRequest;
+                ListSecretsResponse response = null;
 
-                if (!string.IsNullOrEmpty(listSecretsResponse?.NextToken))
+                do
                 {
-                    listSecretsRequest = new ListSecretsRequest
+                    var request = new ListSecretsRequest();
+
+                    if (!string.IsNullOrEmpty(response?.NextToken))
                     {
-                        NextToken = listSecretsResponse.NextToken
-                    };
-                }
-                else
-                {
-                    listSecretsRequest = new ListSecretsRequest();
-                }
+                        request.NextToken = response.NextToken;
+                    }
 
-                listSecretsResponse = await _secretsManager.ListSecretsAsync(listSecretsRequest);
+                    response = await _secretsManager.ListSecretsAsync(request);
 
-                if (listSecretsResponse.HttpStatusCode != HttpStatusCode.OK)
-                {
-                    throw new HttpRequestException("AWS Secrets Manager returned an error while trying to retrieve the list of secrets.");
+                    if (response.HttpStatusCode != HttpStatusCode.OK)
+                    {
+                        throw new HttpRequestException("AWS Secrets Manager returned an error while trying to retrieve the list of secrets.");
+                    }
+
+                    foreach (var secretKey in response.SecretList.Select(l => l.Name))
+                    {
+                        yield return secretKey;
+                    }
                 }
-
-                secretKeys.AddRange(listSecretsResponse.SecretList.Select(l => l.Name));
+                while (!string.IsNullOrEmpty(response?.NextToken));
             }
-            while (!string.IsNullOrEmpty(listSecretsResponse?.NextToken));
+
+            async IAsyncEnumerable<KeyValuePair<string, string>> GetSecretsAsync()
+            {
+                await foreach (var key in GetSecretKeysAsync().ConfigureAwait(false))
+                {
+                    var request = new GetSecretValueRequest
+                    {
+                        SecretId = key
+                    };
+
+                    var response = await _secretsManager.GetSecretValueAsync(request);
+
+                    if (response.HttpStatusCode != HttpStatusCode.OK)
+                    {
+                        throw new HttpRequestException("AWS Secrets Manager returned an error while trying to retrieve the value of a secret.");
+                    }
+
+                    string value;
+
+                    try
+                    {
+                        value = response.SecretString;
+                    }
+                    catch
+                    {
+                        continue;
+                    }
+
+                    yield return new KeyValuePair<string, string>(response.Name, value);
+                }
+            }
 
             var secrets = new Dictionary<string, string>();
 
-            var tasks = new List<Task<GetSecretValueResponse>>();
-
-            foreach (var key in secretKeys)
+            await foreach (var secret in GetSecretsAsync().ConfigureAwait(false))
             {
-                var getSecretValueRequest = new GetSecretValueRequest
-                {
-                    SecretId = key
-                };
-
-                tasks.Add(_secretsManager.GetSecretValueAsync(getSecretValueRequest));
-            }
-
-            await Task.WhenAll(tasks).ConfigureAwait(false);
-
-            foreach (var task in tasks)
-            {
-                var getSecretValueResponse = task.Result;
-
-                if (getSecretValueResponse.HttpStatusCode != HttpStatusCode.OK)
-                {
-                    throw new HttpRequestException("AWS Secrets Manager returned an error while trying to retrieve the value of a secret.");
-                }
-
-                secrets.Add(getSecretValueResponse.Name, getSecretValueResponse.SecretString);
+                secrets.Add(secret.Key, secret.Value);
             }
 
             Data = secrets;
+
+            if (_reloadInterval != null && _reloadTask == null)
+            {
+                _reloadTask = Task.Run(async () =>
+                {
+                    while (!_cancellationToken.IsCancellationRequested)
+                    {
+                        await Task.Delay(_reloadInterval.Value, _cancellationToken.Token);
+
+                        try
+                        {
+                            await LoadAsync();
+                        }
+                        catch
+                        {
+                            // ignore exceptions
+                        }
+                    }
+                },
+                _cancellationToken.Token);
+            }
         }
 
         /// <summary>
@@ -118,6 +177,7 @@ namespace SharpApi.Secrets.AwsSecretsManager
         /// </summary>
         public void Dispose()
         {
+            _cancellationToken.Cancel();
             _secretsManager.Dispose();
         }
     }

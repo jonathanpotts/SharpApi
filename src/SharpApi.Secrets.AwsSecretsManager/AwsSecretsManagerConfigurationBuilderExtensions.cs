@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using SharpApi.Aws;
+using System;
 
 namespace SharpApi.Secrets.AwsSecretsManager
 {
@@ -13,9 +14,10 @@ namespace SharpApi.Secrets.AwsSecretsManager
         /// </summary>
         /// <param name="configurationBuilder">Configuration builder.</param>
         /// <param name="options">Options used to configure the configuration provider.</param>
-        public static void AddAwsSecretsManager(this IConfigurationBuilder configurationBuilder, AwsOptions options = null)
+        /// <param name="reloadInterval">Interval used for reloading data.</param>
+        public static void AddAwsSecretsManager(this IConfigurationBuilder configurationBuilder, AwsOptions options = null, TimeSpan? reloadInterval = null)
         {
-            configurationBuilder.Add(new AwsSecretsManagerConfigurationSource(options));
+            configurationBuilder.Add(new AwsSecretsManagerConfigurationSource(options, reloadInterval));
         }
     }
 }
