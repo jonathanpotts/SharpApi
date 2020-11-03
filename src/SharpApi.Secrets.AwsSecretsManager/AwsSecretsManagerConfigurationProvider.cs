@@ -84,6 +84,8 @@ namespace SharpApi.Secrets.AwsSecretsManager
 
             var secrets = new Dictionary<string, string>();
 
+            var tasks = new List<Task<GetSecretValueResponse>>();
+
             foreach (var key in secretKeys)
             {
                 var getSecretValueRequest = new GetSecretValueRequest
@@ -91,14 +93,21 @@ namespace SharpApi.Secrets.AwsSecretsManager
                     SecretId = key
                 };
 
-                var getSecretValueResponse = await _secretsManager.GetSecretValueAsync(getSecretValueRequest);
+                tasks.Add(_secretsManager.GetSecretValueAsync(getSecretValueRequest));
+            }
+
+            await Task.WhenAll(tasks).ConfigureAwait(false);
+
+            foreach (var task in tasks)
+            {
+                var getSecretValueResponse = task.Result;
 
                 if (getSecretValueResponse.HttpStatusCode != HttpStatusCode.OK)
                 {
                     throw new HttpRequestException("AWS Secrets Manager returned an error while trying to retrieve the value of a secret.");
                 }
 
-                secrets.Add(key, getSecretValueResponse.SecretString);
+                secrets.Add(getSecretValueResponse.Name, getSecretValueResponse.SecretString);
             }
 
             Data = secrets;
