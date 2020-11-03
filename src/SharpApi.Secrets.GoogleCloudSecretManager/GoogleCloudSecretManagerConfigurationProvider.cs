@@ -45,11 +45,21 @@ namespace SharpApi.Secrets.GoogleCloudSecretManager
         /// <param name="reloadInterval">Interval used for reloading data.</param>
         public GoogleCloudSecretManagerConfigurationProvider(GoogleCloudSecretManagerOptions options, TimeSpan? reloadInterval)
         {
-            _options = options;
+            _options = options ?? throw new ArgumentNullException(nameof(options));
 
-            var builder = new SecretManagerServiceClientBuilder();
+            if (!string.IsNullOrEmpty(_options.GoogleCloudCredentialsJsonFilePath))
+            {
+                var builder = new SecretManagerServiceClientBuilder
+                {
+                    CredentialsPath = _options.GoogleCloudCredentialsJsonFilePath
+                };
 
-            _secretManager = builder.Build();
+                _secretManager = builder.Build();
+            }
+            else
+            {
+                _secretManager = SecretManagerServiceClient.Create();
+            }
 
             if (reloadInterval.HasValue)
             {

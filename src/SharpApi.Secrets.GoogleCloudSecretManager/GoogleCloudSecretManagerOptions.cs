@@ -9,5 +9,10 @@
         /// Google Cloud project id.
         /// </summary>
         public string GoogleCloudProjectId { get; set; }
+
+        /// <summary>
+        /// Google Cloud credentials JSON file path.
+        /// </summary>
+        public string GoogleCloudCredentialsJsonFilePath { get; set; }
     }
 }
