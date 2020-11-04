@@ -9,7 +9,6 @@
     <Company>Jonathan Potts</Company>
     <Authors>Jonathan Potts</Authors>
     <Copyright>Copyright © 2020 Jonathan Potts</Copyright>
-    <UserSecretsId>9f508dbc-bce6-4c44-8001-355795f42214</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
@@ -18,8 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SharpApi.AspNetCore\SharpApi.AspNetCore.csproj" />
     <ProjectReference Include="..\SharpApi.Example\SharpApi.Example.csproj" />
+    <ProjectReference Include="..\SharpApi\SharpApi.csproj" />
   </ItemGroup>
 
 </Project>

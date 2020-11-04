@@ -1,6 +1,9 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.ComponentModel.Composition.Hosting;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -13,45 +16,35 @@ namespace SharpApi
     public static class Startup
     {
         /// <summary>
-        /// Determines if the API-specific startup implementation has been initialized.
+        /// Assembly containing the API parts.
         /// </summary>
-        private static bool s_apiStartupInitialized;
-
+        private static Assembly s_apiAssembly;
+        
         /// <summary>
-        /// API-specific startup implementation.
+        /// Assembly containing the API parts.
         /// </summary>
-        private static IApiStartup s_apiStartup;
-
-        /// <summary>
-        /// API-specific startup implementation.
-        /// </summary>
-        /// <exception cref="MissingMemberException">Thrown when the implementation of <see cref="IApiStartup"/> does not contain a default constructor.</exception>
-        private static IApiStartup ApiStartup
+        private static Assembly ApiAssembly
         {
             get
             {
-                if (s_apiStartupInitialized)
+                var location = new FileInfo(Assembly.GetExecutingAssembly().Location).DirectoryName;
+                new DirectoryCatalog(location);
+
+                if (s_apiAssembly != null)
                 {
-                    return s_apiStartup;
+                    return s_apiAssembly;
                 }
 
-                var apiStartupType = ApiTypeManager.StartupType;
+                 s_apiAssembly = AppDomain
+                    .CurrentDomain
+                    .GetAssemblies()
+                    .Where(a => !a.IsDynamic && new FileInfo(a.Location).DirectoryName == location)
+                    .SelectMany(a => a.GetTypes())
+                    .Where(t => t.GetCustomAttribute(typeof(ApiControllerAttribute)) != null)
+                    .FirstOrDefault()?
+                    .Assembly;
 
-                if (apiStartupType != null)
-                {
-                    try
-                    {
-                        s_apiStartup = (IApiStartup)Activator.CreateInstance(apiStartupType);
-                    }
-                    catch (MissingMemberException ex)
-                    {
-                        throw new MissingMemberException($"The implementation of {nameof(IApiStartup)} must contain a default constructor.", ex);
-                    }
-                }
-
-                s_apiStartupInitialized = true;
-
-                return s_apiStartup;
+                return s_apiAssembly;
             }
         }
 
@@ -62,32 +55,13 @@ namespace SharpApi
         /// <param name="args">Command line arguments used to configure the app configuration.</param>
         public static void ConfigureAppConfiguration(IConfigurationBuilder configurationBuilder, string[] args = null)
         {
-            var location = new FileInfo(Assembly.GetExecutingAssembly().Location).DirectoryName;
-
-            configurationBuilder.SetBasePath(location);
-
-            configurationBuilder.AddJsonFile("appsettings.json", true);
-            configurationBuilder.AddJsonFile($"appsettings.{ApiEnvironment.EnvironmentName}.json", true);
-            configurationBuilder.AddJsonFile("local.settings.json", true);
-
-            configurationBuilder.AddEnvironmentVariables();
-
-            if (args != null)
-            {
-                configurationBuilder.AddCommandLine(args);
-            }
-
             if (ApiEnvironment.IsDevelopment())
             {
-                var apiAssembly = ApiTypeManager.EndpointTypes.FirstOrDefault()?.Assembly;
-
-                if (apiAssembly != null)
+                if (ApiAssembly != null)
                 {
-                    configurationBuilder.AddUserSecrets(apiAssembly);
+                    configurationBuilder.AddUserSecrets(ApiAssembly);
                 }
             }
-
-            ApiStartup?.ConfigureAppConfiguration(configurationBuilder);
         }
 
         /// <summary>
@@ -97,14 +71,30 @@ namespace SharpApi
         /// <param name="configuration"><see cref="IConfiguration"/> containing the app configuration.</param>
         public static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
         {
-            ApiStartup?.ConfigureServices(services, configuration);
+#if NETSTANDARD2_0
+            services
+                .AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+                .AddApplicationPart(ApiAssembly);
+#else
+            services
+                .AddControllers()
+                .AddApplicationPart(ApiAssembly);
+#endif
+        }
 
-            services.AddSingleton<IRouter, Router>();
+        public static void Configure(IApplicationBuilder app)
+        {
+#if NETSTANDARD2_0
+            app.UseMvc();
+#else
+            app.UseRouting();
 
-            foreach (var endpointType in ApiTypeManager.EndpointTypes ?? Enumerable.Empty<Type>())
+            app.UseEndpoints(configure =>
             {
-                services.AddTransient(endpointType);
-            }
+                configure.MapControllers();
+            });
+#endif
         }
     }
 }

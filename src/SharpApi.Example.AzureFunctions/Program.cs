@@ -27,7 +27,7 @@ namespace SharpApi.Example.AzureFunctions
             [HttpTrigger(AuthorizationLevel.Anonymous, Route = "{**path}")] HttpRequest request,
             ILogger logger)
         {
-            return await AzureFunctionsHttpEndpoint.HandleAsync(request, logger);
+            return new OkResult();
         }
     }
 }

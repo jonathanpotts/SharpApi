@@ -5,13 +5,9 @@ VisualStudioVersion = 16.0.30503.244
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpApi", "SharpApi\SharpApi.csproj", "{143A19D1-D2CE-47ED-B337-FD03759570CB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpApi.AwsLambda", "SharpApi.AwsLambda\SharpApi.AwsLambda.csproj", "{268BEC72-2704-4F95-9A75-F1801125AB42}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpApi.Example", "SharpApi.Example\SharpApi.Example.csproj", "{8F8AFBE7-D44E-420F-B6F3-E82D43D1A3CF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpApi.Example.Shared", "SharpApi.Example.Shared\SharpApi.Example.Shared.csproj", "{19A33EF5-AA92-467A-B54B-9DC9CB73212F}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpApi.AspNetCore", "SharpApi.AspNetCore\SharpApi.AspNetCore.csproj", "{F8FE99A1-318B-4417-9B57-DF62905DA38E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpApi.Example.AspNetCore", "SharpApi.Example.AspNetCore\SharpApi.Example.AspNetCore.csproj", "{EBEF27E3-39D4-4005-B1A2-BCE83D68E05C}"
 EndProject
@@ -39,7 +35,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpApi.Secrets.GoogleClou
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpApi.GoogleCloudFunctions", "SharpApi.GoogleCloudFunctions\SharpApi.GoogleCloudFunctions.csproj", "{6D08DA1F-A6BF-4E4C-ACDA-D2E74A0A1E3B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpApi.Aws", "SharpApi.Aws\SharpApi.Aws.csproj", "{CAB1EC81-228C-46D0-923F-78D7A9421A12}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpApi.Aws", "SharpApi.Aws\SharpApi.Aws.csproj", "{CAB1EC81-228C-46D0-923F-78D7A9421A12}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpApi.Example.AspNetCore2_1", "SharpApi.Example.AspNetCore2_1\SharpApi.Example.AspNetCore2_1.csproj", "{0720B87E-76F3-4A9F-A5E9-066E568B10A6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,10 +49,6 @@ Global
 		{143A19D1-D2CE-47ED-B337-FD03759570CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{143A19D1-D2CE-47ED-B337-FD03759570CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{143A19D1-D2CE-47ED-B337-FD03759570CB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{268BEC72-2704-4F95-9A75-F1801125AB42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{268BEC72-2704-4F95-9A75-F1801125AB42}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{268BEC72-2704-4F95-9A75-F1801125AB42}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{268BEC72-2704-4F95-9A75-F1801125AB42}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8F8AFBE7-D44E-420F-B6F3-E82D43D1A3CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8F8AFBE7-D44E-420F-B6F3-E82D43D1A3CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F8AFBE7-D44E-420F-B6F3-E82D43D1A3CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -63,10 +57,6 @@ Global
 		{19A33EF5-AA92-467A-B54B-9DC9CB73212F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{19A33EF5-AA92-467A-B54B-9DC9CB73212F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{19A33EF5-AA92-467A-B54B-9DC9CB73212F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F8FE99A1-318B-4417-9B57-DF62905DA38E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F8FE99A1-318B-4417-9B57-DF62905DA38E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F8FE99A1-318B-4417-9B57-DF62905DA38E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F8FE99A1-318B-4417-9B57-DF62905DA38E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EBEF27E3-39D4-4005-B1A2-BCE83D68E05C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EBEF27E3-39D4-4005-B1A2-BCE83D68E05C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EBEF27E3-39D4-4005-B1A2-BCE83D68E05C}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -123,6 +113,10 @@ Global
 		{CAB1EC81-228C-46D0-923F-78D7A9421A12}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CAB1EC81-228C-46D0-923F-78D7A9421A12}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CAB1EC81-228C-46D0-923F-78D7A9421A12}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0720B87E-76F3-4A9F-A5E9-066E568B10A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0720B87E-76F3-4A9F-A5E9-066E568B10A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0720B87E-76F3-4A9F-A5E9-066E568B10A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0720B87E-76F3-4A9F-A5E9-066E568B10A6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

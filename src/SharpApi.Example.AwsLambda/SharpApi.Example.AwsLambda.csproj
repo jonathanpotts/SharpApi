@@ -1,14 +1,16 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
     <AWSProjectType>Lambda</AWSProjectType>
   </PropertyGroup>
+
   <ItemGroup>
-    <PackageReference Include="Amazon.Lambda.Serialization.SystemTextJson" Version="2.0.2" />
+    <PackageReference Include="Amazon.Lambda.AspNetCoreServer" Version="5.2.0" />
   </ItemGroup>
+
   <ItemGroup>
-    <ProjectReference Include="..\SharpApi.AwsLambda\SharpApi.AwsLambda.csproj" />
     <ProjectReference Include="..\SharpApi.Example\SharpApi.Example.csproj" />
+    <ProjectReference Include="..\SharpApi\SharpApi.csproj" />
   </ItemGroup>
 </Project>
