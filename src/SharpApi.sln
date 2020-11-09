@@ -39,6 +39,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpApi.Aws", "SharpApi.Aw
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpApi.Example.AspNetCore2_1", "SharpApi.Example.AspNetCore2_1\SharpApi.Example.AspNetCore2_1.csproj", "{0720B87E-76F3-4A9F-A5E9-066E568B10A6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpApi.BlobStorage", "SharpApi.BlobStorage\SharpApi.BlobStorage.csproj", "{8A4A8682-AB80-431B-BF80-BA5ED07A41F2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpApi.BlobStorage.AzureBlobStorage", "SharpApi.BlobStorage.AzureBlobStorage\SharpApi.BlobStorage.AzureBlobStorage.csproj", "{6623A25E-58D1-47DD-AE88-82170E91CE6D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -117,6 +121,14 @@ Global
 		{0720B87E-76F3-4A9F-A5E9-066E568B10A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0720B87E-76F3-4A9F-A5E9-066E568B10A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0720B87E-76F3-4A9F-A5E9-066E568B10A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A4A8682-AB80-431B-BF80-BA5ED07A41F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A4A8682-AB80-431B-BF80-BA5ED07A41F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A4A8682-AB80-431B-BF80-BA5ED07A41F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A4A8682-AB80-431B-BF80-BA5ED07A41F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6623A25E-58D1-47DD-AE88-82170E91CE6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6623A25E-58D1-47DD-AE88-82170E91CE6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6623A25E-58D1-47DD-AE88-82170E91CE6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6623A25E-58D1-47DD-AE88-82170E91CE6D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
