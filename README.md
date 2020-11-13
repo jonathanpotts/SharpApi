@@ -2,7 +2,7 @@
 
 ![.NET](https://github.com/jonathanpotts/SharpAPI/workflows/.NET/badge.svg)
 
-SharpAPI is an API toolset for creating REST APIs that can be deployed serverless or hosted on cloud or on-premise infrastructure from a shared [.NET](https://dot.net/) codebase.
+SharpAPI is a collection of [dependency injection services](https://docs.microsoft.com/aspnet/core/fundamentals/dependency-injection/) for [ASP.NET Core](https://docs.microsoft.com/aspnet/core/) applications to consume commonly-used APIs and services from server software and public cloud providers.
 
 ## Docs
 
@@ -10,18 +10,10 @@ Docs are available at [docs.sharpapi.dev](https://docs.sharpapi.dev/).
 
 ## Compatibility
 
-|  | On-Premise, VM, or Platform Independent | [Microsoft Azure](https://azure.microsoft.com/) | [Amazon Web Services (AWS)](https://aws.amazon.com/) | [Google Cloud Platform (GCP)](https://cloud.google.com/) |
+|  | Server Software <br> Service Providers | [Microsoft Azure](https://azure.microsoft.com/) | [Amazon Web Services (AWS)](https://aws.amazon.com/) | [Google Cloud Platform (GCP)](https://cloud.google.com/) |
 | :- | :-: | :-: | :-: | :-: |
-| Compute | [ASP.NET Core](https://dotnet.microsoft.com/apps/aspnet/) 3.1 <br> [Docker](https://www.docker.com/) | [Azure Functions](https://azure.microsoft.com/services/functions/) <br> [App Service](https://azure.microsoft.com/services/app-service/) <br> [Container Instances](https://azure.microsoft.com/services/container-instances/) <br> [Virtual Machines](https://azure.microsoft.com/services/virtual-machines/) | [AWS Lambda](https://aws.amazon.com/lambda/) <br> [AWS Elastic Beanstalk](https://aws.amazon.com/elasticbeanstalk/) <br> [Amazon Elastic Container Service (ECS)](https://aws.amazon.com/ecs/) <br> [Amazon EC2](https://aws.amazon.com/ec2/) | [Cloud Functions](https://cloud.google.com/functions/) <br> [App Engine](https://cloud.google.com/appengine/) <br> [Cloud Run](https://cloud.google.com/run/) <br> [Compute Engine](https://cloud.google.com/compute/) |
-| Relational Database<sup>1</sup> | [SQL Server](https://www.microsoft.com/sql-server/) 2012+ <br> [MySQL](https://www.mysql.com/) 5.6+ <br> [PostgreSQL](https://www.postgresql.org/) 9.5+ <br> [Oracle DB](https://www.oracle.com/database/) 11.2+ | [Azure SQL](https://azure.microsoft.com/services/azure-sql/) <br> [Azure Database for MySQL](https://azure.microsoft.com/services/mysql/) <br> [Azure Database for PostgreSQL](https://azure.microsoft.com/services/postgresql/) | [Amazon RDS](https://aws.amazon.com/rds/) | [Cloud SQL](https://cloud.google.com/sql/) |
 | NoSQL Database | [MongoDB](https://www.mongodb.com/) | [Azure Cosmos DB](https://azure.microsoft.com/services/cosmos-db/) | [Amazon DynamoDB](https://aws.amazon.com/dynamodb/) | [Cloud Bigtable](https://cloud.google.com/bigtable/) |
-| Distributed Cache<sup>2</sup> | [Redis](https://redis.io/) <br> [SQL Server](https://www.microsoft.com/sql-server/) | [Azure Cache for Redis](https://azure.microsoft.com/services/cache/) | [Amazon ElastiCache for Redis](https://aws.amazon.com/elasticache/redis/) | [Memorystore for Redis](https://cloud.google.com/memorystore/) |
 | Blobs | File System <br> Database | [Azure Blob Storage](https://azure.microsoft.com/en-us/services/storage/blobs/) | [Amazon S3](https://aws.amazon.com/s3/) | [Cloud Storage](https://cloud.google.com/storage/) |
-| Email | SMTP <br> [SendGrid](https://sendgrid.com/) | [Microsoft 365 SMTP Relay](https://docs.microsoft.com/en-us/exchange/mail-flow-best-practices/how-to-set-up-a-multifunction-device-or-application-to-send-email-using-microsoft-365-or-office-365/) | [Amazon Simple Email Service (SES)](https://aws.amazon.com/ses/) | [Google Workspace SMTP Relay](https://support.google.com/a/answer/2956491/) |
-| SMS | [Twilio SMS](https://www.twilio.com/sms/) | [Azure Communication Services](https://azure.microsoft.com/en-us/services/communication-services/) | [Amazon Simple Notification Service (SNS)](https://aws.amazon.com/sns/) |  |
-| Secrets / Configuration | User Secrets <br> Environment Variables <br> JSON Files <br> XML Files<sup>3</sup> <br> INI Files<sup>3</sup> <br> Key Per File<sup>3</sup> | [Key Vault](https://azure.microsoft.com/services/key-vault/)<sup>3</sup> | [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/) | [Secret Manager](https://cloud.google.com/secret-manager/) |
-| Identity | OAuth 2.0 <br> OpenID Connect <br> [Microsoft Identity Platform](https://developer.microsoft.com/identity/) <br> [Login with Amazon](https://developer.amazon.com/apps-and-games/login-with-amazon/) <br> [Google Identity Platform](https://developers.google.com/identity/) <br> [Facebook Login](https://developers.facebook.com/docs/facebook-login/) <br> [Sign in with Apple](https://developer.apple.com/sign-in-with-apple/) | [Azure Active Directory](https://azure.microsoft.com/services/active-directory/) | [Amazon Cognito](https://aws.amazon.com/cognito/) | [Identity Platform](https://cloud.google.com/identity-platform/) |
-
-<sup>1</sup> Relational database support available by using [Entity Framework Core](https://docs.microsoft.com/ef/core/).<br>
-<sup>2</sup> Distributed cache support available by using [distributed caching in ASP.NET Core](https://docs.microsoft.com/aspnet/core/performance/caching/distributed/).<br>
-<sup>3</sup> XML files, INI files, key per file, and Azure Key Vault configuration support available by using the [Microsoft-provided configuration providers](https://docs.microsoft.com/aspnet/core/fundamentals/configuration/#cp).
+| Email | SMTP <br> [SendGrid](https://sendgrid.com/) |  | [Amazon Simple Email Service (SES)](https://aws.amazon.com/ses/) <br> [SendGrid](https://sendgrid.com/) |  |
+| SMS | [Twilio SMS](https://www.twilio.com/sms/) | [Azure Communication Services](https://azure.microsoft.com/en-us/services/communication-services/) | [Amazon Simple Notification Service (SNS)](https://aws.amazon.com/sns/)  |  |
+| Secrets / Configuration |  |  | [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/) | [Secret Manager](https://cloud.google.com/secret-manager/) |
