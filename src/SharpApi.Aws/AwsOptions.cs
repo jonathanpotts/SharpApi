@@ -1,4 +1,7 @@
-﻿namespace SharpApi.Aws
+﻿using Amazon.Runtime;
+using Amazon.Runtime.CredentialManagement;
+
+namespace SharpApi.Aws
 {
     /// <summary>
     /// AWS configuration options.
@@ -6,18 +9,31 @@
     public class AwsOptions
     {
         /// <summary>
-        /// AWS Access Key Id.
+        /// Profile.
         /// </summary>
-        public string AwsAccessKeyId { get; set; }
+        public string Profile { get; set; }
 
         /// <summary>
-        /// AWS Secret Access Key.
+        /// Region.
         /// </summary>
-        public string AwsSecretAccessKey { get; set; }
+        public string Region { get; set; }
 
         /// <summary>
-        /// AWS Region System Name.
+        /// Credentials loaded from profile.
         /// </summary>
-        public string AwsRegionSystemName { get; set; }
+        public AWSCredentials Credentials
+        {
+            get
+            {
+                var credentialProfileStoreChain = new CredentialProfileStoreChain();
+
+                if (!credentialProfileStoreChain.TryGetAWSCredentials(Profile, out var credentials))
+                {
+                    throw new AmazonClientException($"Unable to find profile with name of {Profile}.");
+                }
+
+                return credentials;
+            }
+        }
     }
 }

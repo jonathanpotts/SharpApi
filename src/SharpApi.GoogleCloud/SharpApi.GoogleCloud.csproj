@@ -8,6 +8,7 @@
     <Company>Jonathan Potts</Company>
     <Authors>Jonathan Potts</Authors>
     <Copyright>Copyright © 2020 Jonathan Potts</Copyright>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
 </Project>

@@ -22,14 +22,10 @@ namespace SharpApi.Email.AmazonSimpleEmailService
         /// <summary>
         /// Creates an instance of <see cref="AmazonSimpleEmailServiceEmailSender"/>.
         /// </summary>
-        /// <param name="options">Amazon Simple Email Service configuration options.</param>
+        /// <param name="options">AWS configuration options.</param>
         public AmazonSimpleEmailServiceEmailSender(IOptions<AwsOptions> options)
         {
-            _client = new AmazonSimpleEmailServiceClient(
-                options.Value.AwsAccessKeyId, 
-                options.Value.AwsSecretAccessKey, 
-                RegionEndpoint.GetBySystemName(options.Value.AwsRegionSystemName)
-            );
+            _client = new AmazonSimpleEmailServiceClient(options.Value.Credentials, RegionEndpoint.GetBySystemName(options.Value.Region));
         }
 
         /// <summary>

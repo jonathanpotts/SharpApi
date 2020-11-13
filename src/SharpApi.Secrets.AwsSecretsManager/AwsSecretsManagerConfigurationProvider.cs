@@ -49,13 +49,13 @@ namespace SharpApi.Secrets.AwsSecretsManager
             {
                 _secretsManager = new AmazonSecretsManagerClient();
             }
-            else if (!string.IsNullOrEmpty(options.AwsRegionSystemName))
+            else if (!string.IsNullOrEmpty(options.Region))
             {
-                _secretsManager = new AmazonSecretsManagerClient(options.AwsAccessKeyId, options.AwsSecretAccessKey, RegionEndpoint.GetBySystemName(options.AwsRegionSystemName));
+                _secretsManager = new AmazonSecretsManagerClient(options.Credentials, RegionEndpoint.GetBySystemName(options.Region));
             }
             else
             {
-                _secretsManager = new AmazonSecretsManagerClient(options.AwsAccessKeyId, options.AwsSecretAccessKey);
+                _secretsManager = new AmazonSecretsManagerClient(options.Credentials);
             }
 
             if (reloadInterval.HasValue)

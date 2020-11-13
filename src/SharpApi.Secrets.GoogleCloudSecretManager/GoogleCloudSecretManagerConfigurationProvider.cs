@@ -1,6 +1,7 @@
 ﻿using Google.Api.Gax.ResourceNames;
 using Google.Cloud.SecretManager.V1;
 using Microsoft.Extensions.Configuration;
+using SharpApi.GoogleCloud;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -16,7 +17,7 @@ namespace SharpApi.Secrets.GoogleCloudSecretManager
         /// <summary>
         /// Options used to configure the configuration provider.
         /// </summary>
-        private readonly GoogleCloudSecretManagerOptions _options;
+        private readonly GoogleCloudOptions _options;
 
         /// <summary>
         /// Client used to access Google Client Secret Manager.
@@ -43,15 +44,15 @@ namespace SharpApi.Secrets.GoogleCloudSecretManager
         /// </summary>
         /// <param name="options">Options used to configure the configuration provider.</param>
         /// <param name="reloadInterval">Interval used for reloading data.</param>
-        public GoogleCloudSecretManagerConfigurationProvider(GoogleCloudSecretManagerOptions options, TimeSpan? reloadInterval)
+        public GoogleCloudSecretManagerConfigurationProvider(GoogleCloudOptions options, TimeSpan? reloadInterval)
         {
             _options = options ?? throw new ArgumentNullException(nameof(options));
 
-            if (!string.IsNullOrEmpty(_options.GoogleCloudCredentialsJsonFilePath))
+            if (!string.IsNullOrEmpty(_options.CredentialsJsonFilePath))
             {
                 var builder = new SecretManagerServiceClientBuilder
                 {
-                    CredentialsPath = _options.GoogleCloudCredentialsJsonFilePath
+                    CredentialsPath = _options.CredentialsJsonFilePath
                 };
 
                 _secretManager = builder.Build();
@@ -89,7 +90,7 @@ namespace SharpApi.Secrets.GoogleCloudSecretManager
             {
                 var request = new ListSecretsRequest
                 {
-                    ParentAsProjectName = new ProjectName(_options.GoogleCloudProjectId)
+                    ParentAsProjectName = new ProjectName(_options.ProjectId)
                 };
 
                 var secretIds = new List<string>();
@@ -120,7 +121,7 @@ namespace SharpApi.Secrets.GoogleCloudSecretManager
                 {
                     var request = new AccessSecretVersionRequest
                     {
-                        SecretVersionName = new SecretVersionName(_options.GoogleCloudProjectId, secretId, "latest")
+                        SecretVersionName = new SecretVersionName(_options.ProjectId, secretId, "latest")
                     };
 
                     var response = await _secretManager.AccessSecretVersionAsync(request);

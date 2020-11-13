@@ -18,8 +18,6 @@ namespace SharpApi.GoogleCloudFunctions
         public override void ConfigureAppConfiguration(WebHostBuilderContext context, IConfigurationBuilder configuration)
         {
             base.ConfigureAppConfiguration(context, configuration);
-
-            Startup.ConfigureAppConfiguration(configuration);
         }
 
         /// <summary>
@@ -29,7 +27,6 @@ namespace SharpApi.GoogleCloudFunctions
         /// <param name="services">Google Cloud Functions service collection.</param>
         public override void ConfigureServices(WebHostBuilderContext context, IServiceCollection services)
         {
-            Startup.ConfigureServices(services, context.Configuration);
         }
     }
 }

@@ -16,8 +16,4 @@
     <PackageReference Include="Google.Cloud.Functions.Hosting" Version="1.0.0-beta02" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\SharpApi\SharpApi.csproj" />
-  </ItemGroup>
-
 </Project>

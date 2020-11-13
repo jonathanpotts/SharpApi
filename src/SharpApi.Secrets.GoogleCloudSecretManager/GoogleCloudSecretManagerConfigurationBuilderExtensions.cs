@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using SharpApi.GoogleCloud;
 using System;
 
 namespace SharpApi.Secrets.GoogleCloudSecretManager
@@ -14,7 +15,7 @@ namespace SharpApi.Secrets.GoogleCloudSecretManager
         /// <param name="configurationBuilder">Configuration builder.</param>
         /// <param name="options">Options used to configure the configuration provider.</param>
         /// <param name="reloadInterval">Interval used for reloading data.</param>
-        public static void AddGoogleCloudSecretManager(this IConfigurationBuilder configurationBuilder, GoogleCloudSecretManagerOptions options = null, TimeSpan? reloadInterval = null)
+        public static void AddGoogleCloudSecretManager(this IConfigurationBuilder configurationBuilder, GoogleCloudOptions options = null, TimeSpan? reloadInterval = null)
         {
             configurationBuilder.Add(new GoogleCloudSecretManagerConfigurationSource(options, reloadInterval));
         }
