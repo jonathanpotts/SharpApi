@@ -13,6 +13,6 @@ namespace SharpApi.Email
         /// </summary>
         /// <param name="message">Email message to send.</param>
         /// <returns>Task representing the status of sending the email.</returns>
-        public Task SendAsync(MailMessage message);
+        Task SendAsync(MailMessage message);
     }
 }

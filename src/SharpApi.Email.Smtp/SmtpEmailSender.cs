@@ -49,13 +49,26 @@ namespace SharpApi.Email.Smtp
 
             if (!_smtpClient.IsConnected)
             {
-                var secureSocketOptions = _options.Value.Encryption switch
+                SecureSocketOptions secureSocketOptions;
+
+                switch (_options.Value.Encryption)
                 {
-                    SmtpEncryption.None => SecureSocketOptions.None,
-                    SmtpEncryption.SslTls => SecureSocketOptions.SslOnConnect,
-                    SmtpEncryption.StartTls => SecureSocketOptions.StartTls,
-                    _ => SecureSocketOptions.Auto
-                };
+                    case SmtpEncryption.None:
+                        secureSocketOptions = SecureSocketOptions.None;
+                        break;
+
+                    case SmtpEncryption.SslTls:
+                        secureSocketOptions = SecureSocketOptions.SslOnConnect;
+                        break;
+
+                    case SmtpEncryption.StartTls:
+                        secureSocketOptions = SecureSocketOptions.StartTls;
+                        break;
+
+                    default:
+                        secureSocketOptions = SecureSocketOptions.Auto;
+                        break;
+                }
 
                 await _smtpClient.ConnectAsync(_options.Value.Host, _options.Value.Port, secureSocketOptions);
             }

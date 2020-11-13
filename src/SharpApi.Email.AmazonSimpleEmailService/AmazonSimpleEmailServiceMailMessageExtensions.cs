@@ -18,13 +18,16 @@ namespace SharpApi.Email.AmazonSimpleEmailService
         public static SendRawEmailRequest ToSendRawEmailRequest(this MailMessage message)
         {
             var msg = (MimeMessage)message;
-            using var ms = new MemoryStream();
-            msg.WriteTo(ms);
 
-            var rawMsg = new RawMessage(ms);
-            var req = new SendRawEmailRequest(rawMsg);
+            using (var ms = new MemoryStream())
+            {
+                msg.WriteTo(ms);
 
-            return req;
+                var rawMsg = new RawMessage(ms);
+                var req = new SendRawEmailRequest(rawMsg);
+
+                return req;
+            }
         }
     }
 }

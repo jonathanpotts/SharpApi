@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SharpApi.BlobStorage
 {
     public interface IBlobStorageService
     {
-        public IAsyncEnumerable<string> ListContainersAsync();
-        public IBlobContainer GetContainer(string name);
+        Task<IEnumerable<string>> ListContainersAsync();
+        IBlobContainer GetContainer(string name);
     }
 }

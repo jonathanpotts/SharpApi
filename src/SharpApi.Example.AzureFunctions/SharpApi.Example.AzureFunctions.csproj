@@ -2,7 +2,6 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <AzureFunctionsVersion>v3</AzureFunctionsVersion>
-	<LangVersion>latestMajor</LangVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/jonathanpotts/SharpAPI.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>

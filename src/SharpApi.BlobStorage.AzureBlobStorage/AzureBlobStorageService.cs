@@ -3,6 +3,7 @@ using Azure.Storage.Blobs;
 using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace SharpApi.BlobStorage.AzureBlobStorage
 {
@@ -15,12 +16,26 @@ namespace SharpApi.BlobStorage.AzureBlobStorage
             _blobServiceClient = new BlobServiceClient(options.Value.ConnectionString, new BlobClientOptions { Transport = new HttpClientTransport(httpClient) });
         }
 
-        public async IAsyncEnumerable<string> ListContainersAsync()
+        public async Task<IEnumerable<string>> ListContainersAsync()
         {
-            await foreach (var container in _blobServiceClient.GetBlobContainersAsync())
+            var containersEnumerator = _blobServiceClient.GetBlobContainersAsync().GetAsyncEnumerator();
+
+            var containers = new List<string>();
+
+            try
             {
-                yield return container.Name;
+                while (await containersEnumerator.MoveNextAsync())
+                {
+                    var container = containersEnumerator.Current;
+                    containers.Add(container.Name);
+                }
             }
+            finally
+            {
+                await containersEnumerator.DisposeAsync();
+            }
+
+            return containers;
         }
 
         public IBlobContainer GetContainer(string name)

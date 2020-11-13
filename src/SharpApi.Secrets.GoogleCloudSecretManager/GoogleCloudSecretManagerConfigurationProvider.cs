@@ -85,22 +85,38 @@ namespace SharpApi.Secrets.GoogleCloudSecretManager
         /// </summary>
         private async Task LoadAsync()
         {
-            async IAsyncEnumerable<string> GetSecretIdsAsync()
+            async Task<IEnumerable<string>> GetSecretIdsAsync()
             {
                 var request = new ListSecretsRequest
                 {
                     ParentAsProjectName = new ProjectName(_options.GoogleCloudProjectId)
                 };
 
-                await foreach (var secret in _secretManager.ListSecretsAsync(request).ConfigureAwait(false))
+                var secretIds = new List<string>();
+
+                var secretsEnumerator = _secretManager.ListSecretsAsync(request).ConfigureAwait(false).GetAsyncEnumerator();
+
+                try
                 {
-                    yield return secret.SecretName.SecretId;
+                    while (await secretsEnumerator.MoveNextAsync())
+                    {
+                        var secret = secretsEnumerator.Current;
+                        secretIds.Add(secret.SecretName.SecretId);
+                    }
                 }
+                finally
+                {
+                    await secretsEnumerator.DisposeAsync();
+                }
+
+                return secretIds;
             }
 
-            async IAsyncEnumerable<KeyValuePair<string, string>> GetSecretsAsync()
+            async Task<Dictionary<string, string>> GetSecretsAsync()
             {
-                await foreach (var secretId in GetSecretIdsAsync().ConfigureAwait(false))
+                var secrets = new Dictionary<string, string>();
+
+                foreach (var secretId in await GetSecretIdsAsync())
                 {
                     var request = new AccessSecretVersionRequest
                     {
@@ -120,18 +136,13 @@ namespace SharpApi.Secrets.GoogleCloudSecretManager
                         continue;
                     }
 
-                    yield return new KeyValuePair<string, string>(response.SecretVersionName.SecretId, value);
+                    secrets.Add(response.SecretVersionName.SecretId, value);
                 }
+
+                return secrets;
             }
 
-            var secrets = new Dictionary<string, string>();
-
-            await foreach (var secret in GetSecretsAsync().ConfigureAwait(false))
-            {
-                secrets.Add(secret.Key, secret.Value);
-            }
-
-            Data = secrets;
+            Data = await GetSecretsAsync();
 
             if (_reloadInterval != null && _reloadTask == null)
             {

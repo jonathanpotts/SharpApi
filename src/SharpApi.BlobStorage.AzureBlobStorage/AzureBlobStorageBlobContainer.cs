@@ -18,12 +18,26 @@ namespace SharpApi.BlobStorage.AzureBlobStorage
             return await _blobContainerClient.ExistsAsync();
         }
 
-        public async IAsyncEnumerable<string> ListBlobsAsync()
+        public async Task<IEnumerable<string>> ListBlobsAsync()
         {
-            await foreach (var blob in _blobContainerClient.GetBlobsAsync())
+            var blobsEnumerator = _blobContainerClient.GetBlobsAsync().ConfigureAwait(false).GetAsyncEnumerator();
+
+            var blobs = new List<string>();
+
+            try
             {
-                yield return blob.Name;
+                while (await blobsEnumerator.MoveNextAsync())
+                {
+                    var blob = blobsEnumerator.Current;
+                    blobs.Add(blob.Name);
+                }
             }
+            finally
+            {
+                await blobsEnumerator.DisposeAsync();
+            }
+
+            return blobs;
         }
 
         public IBlob GetBlob(string name)

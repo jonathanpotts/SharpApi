@@ -82,9 +82,11 @@ namespace SharpApi.Secrets.AwsSecretsManager
         /// </summary>
         private async Task LoadAsync()
         {
-            async IAsyncEnumerable<string> GetSecretKeysAsync()
+            async Task<IEnumerable<string>> GetSecretKeysAsync()
             {
                 ListSecretsResponse response = null;
+
+                var secretKeys = new List<string>();
 
                 do
                 {
@@ -104,15 +106,19 @@ namespace SharpApi.Secrets.AwsSecretsManager
 
                     foreach (var secretKey in response.SecretList.Select(l => l.Name))
                     {
-                        yield return secretKey;
+                        secretKeys.Add(secretKey);
                     }
                 }
                 while (!string.IsNullOrEmpty(response?.NextToken));
+
+                return secretKeys;
             }
 
-            async IAsyncEnumerable<KeyValuePair<string, string>> GetSecretsAsync()
+            async Task<Dictionary<string, string>> GetSecretsAsync()
             {
-                await foreach (var key in GetSecretKeysAsync().ConfigureAwait(false))
+                var secrets = new Dictionary<string, string>();
+
+                foreach (var key in await GetSecretKeysAsync())
                 {
                     var request = new GetSecretValueRequest
                     {
@@ -137,18 +143,13 @@ namespace SharpApi.Secrets.AwsSecretsManager
                         continue;
                     }
 
-                    yield return new KeyValuePair<string, string>(response.Name, value);
+                    secrets.Add(response.Name, value);
                 }
+
+                return secrets;
             }
 
-            var secrets = new Dictionary<string, string>();
-
-            await foreach (var secret in GetSecretsAsync().ConfigureAwait(false))
-            {
-                secrets.Add(secret.Key, secret.Value);
-            }
-
-            Data = secrets;
+            Data = await GetSecretsAsync();
 
             if (_reloadInterval != null && _reloadTask == null)
             {

@@ -5,8 +5,8 @@ namespace SharpApi.BlobStorage
 {
     public interface IBlob
     {
-        public Task<bool> ExistsAsync();
-        public Task<Stream> DownloadAsync();
-        public Task UploadAsync(Stream stream);
+        Task<bool> ExistsAsync();
+        Task<Stream> DownloadAsync();
+        Task UploadAsync(Stream stream);
     }
 }

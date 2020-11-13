@@ -73,11 +73,13 @@ namespace SharpApi.Email.SendGrid
 
             foreach (var attachment in message.Attachments ?? Enumerable.Empty<System.Net.Mail.Attachment>())
             {
-                using var ms = new MemoryStream();
-                attachment.ContentStream.CopyTo(ms);
-                var base64 = Convert.ToBase64String(ms.ToArray());
+                using (var ms = new MemoryStream())
+                {
+                    attachment.ContentStream.CopyTo(ms);
+                    var base64 = Convert.ToBase64String(ms.ToArray());
 
-                msg.AddAttachment(attachment.ContentDisposition.FileName, base64, attachment.ContentType.MediaType, attachment.ContentDisposition.DispositionType, attachment.ContentId);
+                    msg.AddAttachment(attachment.ContentDisposition.FileName, base64, attachment.ContentType.MediaType, attachment.ContentDisposition.DispositionType, attachment.ContentId);
+                }
             }
 
             var content = new Dictionary<string, string>()
@@ -87,8 +89,10 @@ namespace SharpApi.Email.SendGrid
 
             foreach (var alternateView in message.AlternateViews ?? Enumerable.Empty<AlternateView>())
             {
-                using var sr = new StreamReader(alternateView.ContentStream);
-                content.Add(alternateView.ContentType.MediaType, sr.ReadToEnd());
+                using (var sr = new StreamReader(alternateView.ContentStream))
+                {
+                    content.Add(alternateView.ContentType.MediaType, sr.ReadToEnd());
+                }
             }
 
             if (content.TryGetValue("text/plain", out var text))
