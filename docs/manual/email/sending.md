@@ -71,7 +71,6 @@ Use dependency injection to request an @SharpApi.Email.IEmailSender in your cont
 ```cs
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using SharpApi;
 using SharpApi.Email;
 using System.Net.Mail;
 using System.Threading.Tasks;
