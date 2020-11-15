@@ -9,9 +9,9 @@ For information on configuration details for SMTP relays:
 * **Microsoft 365:** [How to set up a multifunction device or application to send email using Microsoft 365 or Office 365](https://docs.microsoft.com/exchange/mail-flow-best-practices/how-to-set-up-a-multifunction-device-or-application-to-send-email-using-microsoft-365-or-office-365)
 * **Google Workspace:** [SMTP relay: Route outgoing non-Gmail messages through Google](https://support.google.com/a/answer/2956491/)
 
-Add the [`SharpApi.Email.Smtp`](~/obj/api/SharpApi.Email.Smtp.yml) package to your API project.
+Add the [`SharpApi.Email.Smtp`](~/obj/api/SharpApi.Email.Smtp.yml) package to your project.
 
-Then add the service to your API by adding the following to your API's [`ConfigureServices(IServiceCollection, IConfiguration)`](~/obj/api/SharpApi.IApiStartup.yml#SharpApi_IApiStartup_ConfigureServices_Microsoft_Extensions_DependencyInjection_IServiceCollection_Microsoft_Extensions_Configuration_IConfiguration_) method:
+Then register the service to your application by adding the following to your `Startup.Configure` method:
 
 ```cs
 services.AddSmtpEmailSender(options =>
@@ -25,17 +25,15 @@ services.AddSmtpEmailSender(options =>
 });
 ```
 
-For more information about adding services to your API, see [Dependency Injection (Services)](~/manual/fundamentals/dependency-injection-services.md).
-
 ## Configuring SendGrid
 
 For information on setting up SendGrid:
 
 * [Getting Started with the SendGrid API](https://sendgrid.com/docs/for-developers/sending-email/api-getting-started/)
 
-Add the [`SharpApi.Email.SendGrid`](~/obj/api/SharpApi.Email.SendGrid.yml) package to your API project.
+Add the [`SharpApi.Email.SendGrid`](~/obj/api/SharpApi.Email.SendGrid.yml) package to your project.
 
-Then add the service to your API by adding the following to your API's [`ConfigureServices(IServiceCollection, IConfiguration)`](~/obj/api/SharpApi.IApiStartup.yml#SharpApi_IApiStartup_ConfigureServices_Microsoft_Extensions_DependencyInjection_IServiceCollection_Microsoft_Extensions_Configuration_IConfiguration_) method:
+Then register the service to your application by adding the following to your `Startup.Configure` method:
 
 ```cs
 services.AddSendGridEmailSender(options =>
@@ -45,54 +43,49 @@ services.AddSendGridEmailSender(options =>
 });
 ```
 
-For more information about adding services to your API, see [Dependency Injection (Services)](~/manual/fundamentals/dependency-injection-services.md).
-
 ## Configuring Amazon Simple Email Service
 
 For information on setting up Amazon Simple Email Service:
 
 * [Amazon SES Quick start](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/quick-start.html)
 
-Add the [`SharpApi.Email.AmazonSimpleEmailService`](~/obj/api/SharpApi.Email.AmazonSimpleEmailService.yml) package to your API project.
+Add the [`SharpApi.Email.AmazonSimpleEmailService`](~/obj/api/SharpApi.Email.AmazonSimpleEmailService.yml) package to your project.
 
-Then add the service to your API by adding the following to your API's [`ConfigureServices(IServiceCollection, IConfiguration)`](~/obj/api/SharpApi.IApiStartup.yml#SharpApi_IApiStartup_ConfigureServices_Microsoft_Extensions_DependencyInjection_IServiceCollection_Microsoft_Extensions_Configuration_IConfiguration_) method:
+Then register the service to your application by adding the following to your  `Startup.Configure` method:
 
 ```cs
 services.AddAmazonSimpleEmailServiceEmailSender(options =>
 {
     // Use your configuration here
-    options.AwsAccessKeyId = configuration.GetValue<string>("AwsAccessKeyId");
-    options.AwsSecretAccessKey = configuration.GetValue<string>("AwsSecretAccessKey");
-    options.AwsRegionSystemName = configuration.GetValue<string>("AwsRegionSystemName");
+    options.Profile = configuration.GetValue<string>("AwsProfile");
+    options.AwsRegion = configuration.GetValue<string>("AwsRegion");
 });
 ```
 
-For more information about adding services to your API, see [Dependency Injection (Services)](~/manual/fundamentals/dependency-injection-services.md).
-
 ## Sending an email
 
-Use dependency injection to add an [`IEmailSender`](~/obj/api/SharpApi.Email.IEmailSender.yml) to your API endpoint and use it to send the email.
+Use dependency injection to request an [`IEmailSender`](~/obj/api/SharpApi.Email.IEmailSender.yml) in your controller and use it to send the email.
 
 **Example:**
 
 ```cs
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using SharpApi;
 using SharpApi.Email;
 using System.Net.Mail;
 using System.Threading.Tasks;
 
-[ApiEndpoint("/send-email", "POST")]
-public class SendEmailEndpoint : ApiEndpoint
+public class SendEmailController : Controller
 {
     private IEmailSender _emailSender;
 
-    public SendEmailEndpoint(IEmailSender emailSender)
+    public SendEmailController(IEmailSender emailSender)
     {
         _emailSender = emailSender;
     }
 
-    public override async Task<ApiResult> RunAsync(ApiRequest request)
+    public async Task<IActionResult> PostAsync()
     {
         using var msg = new MailMessage();
 
@@ -103,7 +96,7 @@ public class SendEmailEndpoint : ApiEndpoint
 
         await _emailSender.SendAsync(msg);
 
-        return new StatusCodeResult(StatusCodes.Status200OK);
+        return Ok();
     }
 }
 ```

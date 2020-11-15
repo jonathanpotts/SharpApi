@@ -1,6 +1,6 @@
 # SharpAPI
 
-SharpAPI is an API toolset for creating REST APIs that can be deployed serverless or hosted on cloud or on-premise infrastructure from a shared [.NET](https://dot.net/) codebase.
+SharpAPI is a collection of [dependency injection services](https://docs.microsoft.com/aspnet/core/fundamentals/dependency-injection/) for [ASP.NET Core](https://docs.microsoft.com/aspnet/core/) applications to consume commonly-used APIs and services from server software and public cloud providers.
 
 ## Get Started
 

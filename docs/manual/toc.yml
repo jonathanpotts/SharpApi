@@ -1,11 +1,5 @@
 - name: Get Started
   href: get-started.md
-- name: Fundamentals
-  items:
-    - name: Configuration
-      href: fundamentals/configuration.md
-    - name: Dependency Injection (Services)
-      href: fundamentals/dependency-injection-services.md
 - name: Email
   items:
     - name: Sending emails
