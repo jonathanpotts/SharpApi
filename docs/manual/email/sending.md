@@ -9,7 +9,7 @@ For information on configuration details for SMTP relays:
 * **Microsoft 365:** [How to set up a multifunction device or application to send email using Microsoft 365 or Office 365](https://docs.microsoft.com/exchange/mail-flow-best-practices/how-to-set-up-a-multifunction-device-or-application-to-send-email-using-microsoft-365-or-office-365)
 * **Google Workspace:** [SMTP relay: Route outgoing non-Gmail messages through Google](https://support.google.com/a/answer/2956491/)
 
-Add the [`SharpApi.Email.Smtp`](~/obj/api/SharpApi.Email.Smtp.yml) package to your project.
+Add the @SharpApi.Email.Smtp package to your project.
 
 Then register the service to your application by adding the following to your `Startup.Configure` method:
 
@@ -31,7 +31,7 @@ For information on setting up SendGrid:
 
 * [Getting Started with the SendGrid API](https://sendgrid.com/docs/for-developers/sending-email/api-getting-started/)
 
-Add the [`SharpApi.Email.SendGrid`](~/obj/api/SharpApi.Email.SendGrid.yml) package to your project.
+Add the @SharpApi.Email.SendGrid package to your project.
 
 Then register the service to your application by adding the following to your `Startup.Configure` method:
 
@@ -49,7 +49,7 @@ For information on setting up Amazon Simple Email Service:
 
 * [Amazon SES Quick start](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/quick-start.html)
 
-Add the [`SharpApi.Email.AmazonSimpleEmailService`](~/obj/api/SharpApi.Email.AmazonSimpleEmailService.yml) package to your project.
+Add the @SharpApi.Email.AmazonSimpleEmailService package to your project.
 
 Then register the service to your application by adding the following to your  `Startup.Configure` method:
 
@@ -64,7 +64,7 @@ services.AddAmazonSimpleEmailServiceEmailSender(options =>
 
 ## Sending an email
 
-Use dependency injection to request an [`IEmailSender`](~/obj/api/SharpApi.Email.IEmailSender.yml) in your controller and use it to send the email.
+Use dependency injection to request an @SharpApi.Email.IEmailSender in your controller and use it to send the email.
 
 **Example:**
 

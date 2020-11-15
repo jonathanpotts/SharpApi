@@ -3,6 +3,6 @@
   topicHref: manual/get-started.md
 - name: API Reference
   href: obj/api/
-  topicHref: obj/api/SharpApi.yml
+  topicHref: obj/api/index.md
 - name: GitHub
   href: https://github.com/jonathanpotts/SharpAPI
