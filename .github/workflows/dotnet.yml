@@ -8,14 +8,17 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: src
 
     steps:
-    - uses: actions/checkout@v2.3.3
+    - uses: actions/checkout@v2.3.4
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1.7.2
       with:
-        dotnet-version: 3.1.402
+        dotnet-version: 5.0.100
     - name: Install dependencies
       working-directory: src
       run: dotnet restore
@@ -25,15 +28,24 @@ jobs:
     - name: Test
       working-directory: src
       run: dotnet test --no-restore --verbosity normal
+  
+  docs:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: docs
+    
+    steps:
+    - uses: actions/checkout@v2.3.4
     - name: Setup DocFX
-      run: choco install docfx -y
-    - name: Generate docs site
+      run: brew install docfx
+    - name: Build
       run: docfx
-      working-directory: docs
       env:
         DOCFX_SOURCE_BRANCH_NAME: main
-    - name: Deploy docs site to gh-pages branch
+    - name: Deploy
       uses: peaceiris/actions-gh-pages@v3.7.3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./docs/bin/_site
+        cname: docs.sharpapi.dev
