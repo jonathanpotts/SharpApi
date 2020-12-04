@@ -48,8 +48,7 @@
     },
     "globalMetadata": {
       "_appTitle": "SharpAPI Docs",
-      "_enableSearch": true,
-      "_disableContribution": true
+      "_enableSearch": true
     },
     "globalMetadataFiles": [],
     "fileMetadataFiles": [],
