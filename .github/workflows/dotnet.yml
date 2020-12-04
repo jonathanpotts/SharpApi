@@ -40,7 +40,7 @@ jobs:
     - name: Setup DocFX
       run: curl --location --output docfx.zip https://github.com/dotnet/docfx/releases/latest/download/docfx.zip && 7z e docfx.zip
     - name: Build
-      run: docfx
+      run: ./docfx
       env:
         DOCFX_SOURCE_BRANCH_NAME: main
     - name: Deploy
