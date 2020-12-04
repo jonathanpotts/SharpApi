@@ -20,31 +20,34 @@ jobs:
       with:
         dotnet-version: 5.0.100
     - name: Install dependencies
-      working-directory: src
       run: dotnet restore
     - name: Build
-      working-directory: src
       run: dotnet build --configuration Release --no-restore
     - name: Test
-      working-directory: src
       run: dotnet test --no-restore --verbosity normal
   
   docs:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: docs
     
     steps:
     - uses: actions/checkout@v2.3.4
+    - name: Setup DocFX
+      run: curl --location --output docfx.zip https://github.com/dotnet/docfx/releases/latest/download/docfx.zip && 7z e docfx.zip
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1.7.2
       with:
         dotnet-version: 5.0.100
-    - name: Setup DocFX
-      run: curl --location --output docfx.zip https://github.com/dotnet/docfx/releases/latest/download/docfx.zip && 7z e docfx.zip
-    - name: Build
-      run: ./docfx
+    - name: Install dependencies
+      working-directory: src
+      run: dotnet restore
+    - name: Build project
+      working-directory: src
+      run: dotnet build --configuration Release --no-restore
+    - name: Build docs
+      run: mono docfx.exe
       env:
         DOCFX_SOURCE_BRANCH_NAME: main
     - name: Deploy
