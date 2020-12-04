@@ -14,6 +14,6 @@ Docs are available at [docs.sharpapi.dev](https://docs.sharpapi.dev/).
 | :- | :-: | :-: | :-: | :-: |
 | NoSQL Database | [MongoDB](https://www.mongodb.com/) | [Azure Cosmos DB](https://azure.microsoft.com/services/cosmos-db/) | [Amazon DynamoDB](https://aws.amazon.com/dynamodb/) | [Cloud Bigtable](https://cloud.google.com/bigtable/) |
 | Blobs | File System <br> Database | [Azure Blob Storage](https://azure.microsoft.com/en-us/services/storage/blobs/) | [Amazon S3](https://aws.amazon.com/s3/) | [Cloud Storage](https://cloud.google.com/storage/) |
-| Email | SMTP <br> [SendGrid](https://sendgrid.com/) |  | [Amazon Simple Email Service (SES)](https://aws.amazon.com/ses/) <br> [SendGrid](https://sendgrid.com/) |  |
+| Email | SMTP <br> [SendGrid](https://sendgrid.com/) |  | [Amazon Simple Email Service (SES)](https://aws.amazon.com/ses/) |  |
 | SMS | [Twilio SMS](https://www.twilio.com/sms/) | [Azure Communication Services](https://azure.microsoft.com/en-us/services/communication-services/) | [Amazon Simple Notification Service (SNS)](https://aws.amazon.com/sns/)  |  |
 | Secrets / Configuration |  |  | [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/) | [Secret Manager](https://cloud.google.com/secret-manager/) |
