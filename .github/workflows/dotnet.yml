@@ -55,4 +55,3 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: docs/bin/_site
-        cname: docs.sharpapi.dev
