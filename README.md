@@ -6,7 +6,7 @@ SharpAPI is a collection of [dependency injection services](https://docs.microso
 
 ## Docs
 
-Docs are available at [docs.sharpapi.dev](https://docs.sharpapi.dev/).
+Docs are available at [jonathanpotts.github.io/SharpAPI](https://jonathanpotts.github.io/SharpAPI).
 
 ## Compatibility
 
