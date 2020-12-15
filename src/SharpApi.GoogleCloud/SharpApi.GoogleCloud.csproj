@@ -9,6 +9,7 @@
     <Authors>Jonathan Potts</Authors>
     <Copyright>Copyright © 2020 Jonathan Potts</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	<PackageProjectUrl>https://jonathanpotts.github.io/SharpAPI</PackageProjectUrl>
   </PropertyGroup>
 
 </Project>

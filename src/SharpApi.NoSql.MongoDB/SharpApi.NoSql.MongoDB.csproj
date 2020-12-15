@@ -9,10 +9,11 @@
     <Authors>Jonathan Potts</Authors>
     <Copyright>Copyright © 2020 Jonathan Potts</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	<PackageProjectUrl>https://jonathanpotts.github.io/SharpAPI</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MongoDB.Driver" Version="2.11.3" />
+    <PackageReference Include="MongoDB.Driver" Version="2.11.5" />
   </ItemGroup>
 
   <ItemGroup>
