@@ -1,6 +1,6 @@
 # SharpAPI
 
-![.NET](https://github.com/jonathanpotts/SharpAPI/workflows/.NET/badge.svg)
+![.NET](https://github.com/jonathanpotts/SharpAPI/workflows/.NET/badge.svg) ![DocFX](https://github.com/jonathanpotts/SharpAPI/workflows/DocFX/badge.svg)
 
 SharpAPI is a collection of [dependency injection services](https://docs.microsoft.com/aspnet/core/fundamentals/dependency-injection/) for [ASP.NET Core](https://docs.microsoft.com/aspnet/core/) applications to consume commonly-used APIs and services from server software and public cloud providers.
 

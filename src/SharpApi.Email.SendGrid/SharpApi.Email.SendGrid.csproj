@@ -10,6 +10,7 @@
     <Copyright>Copyright © 2020 Jonathan Potts</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageProjectUrl>https://jonathanpotts.github.io/SharpAPI</PackageProjectUrl>
+	<Description>SharpAPI is a collection of dependency injection services for ASP.NET Core applications to consume commonly-used APIs and services from server software and public cloud providers.</Description>
   </PropertyGroup>
 
   <ItemGroup>
