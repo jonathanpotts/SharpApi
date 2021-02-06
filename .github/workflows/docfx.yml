@@ -8,19 +8,20 @@ on:
 
 jobs:
   docs:
+    
     runs-on: windows-latest
     defaults:
       run:
         working-directory: docs
     
     steps:
-    - uses: actions/checkout@v2.3.4
+    - uses: actions/checkout@v2
     - name: Setup DocFX
       run: curl --location --output docfx.zip https://github.com/dotnet/docfx/releases/latest/download/docfx.zip && 7z e docfx.zip
     - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1.7.2
+      uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.101
+        dotnet-version: 5.0.x
     - name: Install dependencies
       working-directory: src
       run: dotnet restore
